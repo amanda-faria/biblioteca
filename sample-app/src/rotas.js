@@ -17,6 +17,8 @@ import CadastroFuncionario from './views/cadastro-funcionario';
 import CadastroLeitor from './views/cadastro-leitor';
 
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import Reserva from './views/reservar';
+import Renovar from './views/renovar';
 
 
 function Rotas(props) {
@@ -24,10 +26,7 @@ function Rotas(props) {
     <BrowserRouter>
       <Routes>
         {/* <Route path='/login' element={<Login />} />
-        <Route
-          path='/cadastro-usuarios/:idParam?'
-          element={<CadastroUsuario />}
-        />
+        <Route path='/cadastro-usuarios/:idParam?'element={<CadastroUsuario />}/>
         <Route path='/cadastro-cursos/:idParam?' element={<CadastroCurso />} />
         <Route
           path='/cadastro-professores/:idParam?'
@@ -37,6 +36,7 @@ function Rotas(props) {
         <Route path='/listagem-usuarios' element={<ListagemUsuarios />} />
         <Route path='/listagem-cursos' element={<ListagemCursos />} />
         <Route path='/listagem-professores' element={<ListagemProfessores />} /> */}
+        <Route path='/login' element={<Login />} />
         <Route path='/listagem-leitores' element={<ListagemLeitores />} />
         <Route path='/cadastro-leitor' element={<CadastroLeitor />} />
         <Route path='/listagem-funcionarios' element={<ListagemFuncionarios />} />
@@ -49,6 +49,9 @@ function Rotas(props) {
         <Route path='/cadastro-emprestimo' element={<CadastroEmprestimo />} />
         <Route path='/listagem-devolucoes' element={<ListagemDevolucoes />} />
         <Route path='/cadastro-devolucao' element={<CadastroDevolucao />} />
+        <Route path='/reserva' element={<Reserva />} />
+        <Route path='/renovar' element={<Renovar />} />
+
       </Routes>
     </BrowserRouter>
   );

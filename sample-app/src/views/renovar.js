@@ -13,7 +13,7 @@ import '../custom.css';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-function CadastroDevolucao() {
+function Renovar() {
   const { idParam } = useParams();
 
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ function CadastroDevolucao() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState('');
+//   const [idTitulo, setIdTitulo] = useState('');
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
@@ -32,6 +33,7 @@ function CadastroDevolucao() {
   function inicializar() {
     if (idParam == null) {
       setId('');
+    //   setIdTitulo('');
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -39,6 +41,7 @@ function CadastroDevolucao() {
       // setAdmin(false);
     } else {
       setId(dados.id);
+    //   setIdTitulo(dados.id);
       // setLogin(dados.login);
       // setCpf(dados.cpf);
       // setSenha('');
@@ -48,7 +51,7 @@ function CadastroDevolucao() {
   }
 
   async function salvar() {
-    let data = { id, /*login, cpf, senha, senhaRepeticao, admin*/ };
+    let data = { id, /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -56,8 +59,8 @@ function CadastroDevolucao() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Devolução ${id} cadastrado com sucesso!`);
-          navigate(`/listagem-devolucoes`);
+          mensagemSucesso(`Renovar ${id} cadastrado com sucesso!`);
+          navigate(`/listagem-titulos`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -68,8 +71,8 @@ function CadastroDevolucao() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Devolução ${id} alterado com sucesso!`);
-          navigate(`/listagem-devolucoes`);
+          mensagemSucesso(`Renovar ${id} alterado com sucesso!`);
+          navigate(`/listagem-titulos`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -97,7 +100,7 @@ function CadastroDevolucao() {
 
   return (
     <div className='container'>
-      <Card title='Cadastro de Devolução'>
+      <Card title='Cadastro de Renovação'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -111,6 +114,16 @@ function CadastroDevolucao() {
                   onChange={(e) => setId(e.target.value)}
                 />
               </FormGroup>
+              {/* <FormGroup label='ID Titulo: *' htmlFor='inputIdTitulo'>
+                <input
+                  type='text'
+                  id='inputIdTitulo'
+                  value={idTitulo}
+                  className='form-control'
+                  name='idTitulo'
+                  onChange={(e) => setIdTitulo(e.target.value)}
+                />
+              </FormGroup> */}
               {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>
                 <input
                   type='text'
@@ -177,4 +190,4 @@ function CadastroDevolucao() {
   );
 }
 
-export default CadastroDevolucao;
+export default Renovar;

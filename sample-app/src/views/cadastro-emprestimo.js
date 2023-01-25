@@ -21,34 +21,34 @@ function CadastroEmprestimo() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');
-  const [senhaRepeticao, setSenhaRepeticao] = useState('');
-  const [admin, setAdmin] = useState(false);
+  // const [login, setLogin] = useState('');
+  // const [cpf, setCpf] = useState('');
+  // const [senha, setSenha] = useState('');
+  // const [senhaRepeticao, setSenhaRepeticao] = useState('');
+  // const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setLogin('');
-      setCpf('');
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(false);
+      // setLogin('');
+      // setCpf('');
+      // setSenha('');
+      // setSenhaRepeticao('');
+      // setAdmin(false);
     } else {
       setId(dados.id);
-      setLogin(dados.login);
-      setCpf(dados.cpf);
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(dados.admin);
+      // setLogin(dados.login);
+      // setCpf(dados.cpf);
+      // setSenha('');
+      // setSenhaRepeticao('');
+      // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, login, cpf, senha, senhaRepeticao, admin };
+    let data = { id, /*login, cpf, senha, senhaRepeticao, admin */};
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -56,7 +56,7 @@ function CadastroEmprestimo() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Empréstimo ${login} cadastrado com sucesso!`);
+          mensagemSucesso(`Empréstimo ${id} cadastrado com sucesso!`);
           navigate(`/listagem-emprestimos`);
         })
         .catch(function (error) {
@@ -68,7 +68,7 @@ function CadastroEmprestimo() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Empréstimo ${login} alterado com sucesso!`);
+          mensagemSucesso(`Empréstimo ${id} alterado com sucesso!`);
           navigate(`/listagem-emprestimos`);
         })
         .catch(function (error) {
@@ -82,11 +82,11 @@ function CadastroEmprestimo() {
       setDados(response.data);
     });
     setId(dados.id);
-    setLogin(dados.login);
-    setCpf(dados.cpf);
-    setSenha('');
-    setSenhaRepeticao('');
-    setAdmin(dados.admin);
+    // setLogin(dados.login);
+    // setCpf(dados.cpf);
+    // setSenha('');
+    // setSenhaRepeticao('');
+    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
@@ -101,17 +101,17 @@ function CadastroEmprestimo() {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
-              <FormGroup label='Login: *' htmlFor='inputLogin'>
+              <FormGroup label='Id do Leitor: *' htmlFor='inputIdLeitor'>
                 <input
                   type='text'
-                  id='inputLogin'
-                  value={login}
+                  id='inputIdLeitor'
+                  value={id}
                   className='form-control'
-                  name='login'
-                  onChange={(e) => setLogin(e.target.value)}
+                  name='id'
+                  onChange={(e) => setId(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='CPF: *' htmlFor='inputCpf'>
+              {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>
                 <input
                   type='text'
                   maxLength='11'
@@ -121,8 +121,8 @@ function CadastroEmprestimo() {
                   name='cpf'
                   onChange={(e) => setCpf(e.target.value)}
                 />
-              </FormGroup>
-              <FormGroup label='Senha: *' htmlFor='inputSenha'>
+              </FormGroup> */}
+              {/* <FormGroup label='Senha: *' htmlFor='inputSenha'>
                 <input
                   type='password'
                   id='inputSenha'
@@ -131,8 +131,8 @@ function CadastroEmprestimo() {
                   name='senha'
                   onChange={(e) => setSenha(e.target.value)}
                 />
-              </FormGroup>
-              <FormGroup label='Repita a Senha: *' htmlFor='inputRepitaSenha'>
+              </FormGroup> */}
+              {/* <FormGroup label='Repita a Senha: *' htmlFor='inputRepitaSenha'>
                 <input
                   type='password'
                   id='inputRepitaSenha'
@@ -141,8 +141,8 @@ function CadastroEmprestimo() {
                   name='senhaRepeticao'
                   onChange={(e) => setSenhaRepeticao(e.target.value)}
                 />
-              </FormGroup>
-              <FormGroup>
+              </FormGroup> */}
+              {/* <FormGroup>
                 <input
                   className='form-check-input'
                   type='checkbox'
@@ -152,7 +152,7 @@ function CadastroEmprestimo() {
                   onChange={(e) => setAdmin(e.target.checked)}
                 />
                 Administrador
-              </FormGroup>
+              </FormGroup> */}
               <Stack spacing={1} padding={1} direction='row'>
                 <button
                   onClick={salvar}

@@ -8,7 +8,7 @@ function Navbar(props) {
     <div className='navbar navbar-expand-lg fixed-top navbar-dark bg-primary'>
       <div className='container'>
         <a href='/' className='navbar-brand'>
-          SAA
+          Biblioteca
         </a>
         <button
           className='navbar-toggler'
@@ -22,7 +22,7 @@ function Navbar(props) {
           <span className='navbar-toggler-icon'></span>
         </button>
         <div className='collapse navbar-collapse' id='navbarResponsive'>
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem
               render='true'
               href='/listagem-usuarios'
@@ -44,10 +44,11 @@ function Navbar(props) {
           </ul>
           <ul className='navbar-nav'>
             <NavbarItem render='true' href='/login' label='Entrar' />
-          </ul>
+          </ul> */}
           <ul className='navbar-nav'>
-            <NavbarItem render='true' href='/' label='Sair' />
+            <NavbarItem render='true' href='/login' label='Sair' />
           </ul>
+          
         </div>
       </div>
     </div>

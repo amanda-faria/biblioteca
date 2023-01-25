@@ -21,34 +21,34 @@ function CadastroExemplar() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');
-  const [senhaRepeticao, setSenhaRepeticao] = useState('');
-  const [admin, setAdmin] = useState(false);
+  const [numTombo, setNumTombo] = useState('');
+  const [dataAquisicao, setDataAquisicao] = useState('');
+  const [tipoAquisicao, setTipoAquisicao] = useState('');
+  const [valor, setValor] = useState('');
+  // const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setLogin('');
-      setCpf('');
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(false);
+      setNumTombo('');
+      setDataAquisicao('');
+      setTipoAquisicao('');
+      setValor('');
+      // setAdmin(false);
     } else {
       setId(dados.id);
-      setLogin(dados.login);
-      setCpf(dados.cpf);
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(dados.admin);
+      setNumTombo(dados.numTombo);
+      setDataAquisicao(dados.dataAquisicao);
+      setTipoAquisicao('');
+      setValor('');
+      // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, login, cpf, senha, senhaRepeticao, admin };
+    let data = { id, numTombo, dataAquisicao, tipoAquisicao , valor /* admin*/};
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -56,7 +56,7 @@ function CadastroExemplar() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${login} cadastrado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numTombo} cadastrado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -68,7 +68,7 @@ function CadastroExemplar() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${login} alterado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numTombo} alterado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -82,11 +82,11 @@ function CadastroExemplar() {
       setDados(response.data);
     });
     setId(dados.id);
-    setLogin(dados.login);
-    setCpf(dados.cpf);
-    setSenha('');
-    setSenhaRepeticao('');
-    setAdmin(dados.admin);
+    setNumTombo(dados.numTombo);
+    setDataAquisicao(dados.dataAquisicao);
+    setTipoAquisicao('');
+    setValor('');
+    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
@@ -101,48 +101,48 @@ function CadastroExemplar() {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
-              <FormGroup label='Login: *' htmlFor='inputLogin'>
+              <FormGroup label='Número de Tombo: *' htmlFor='inputNumTombo'>
                 <input
                   type='text'
-                  id='inputLogin'
-                  value={login}
+                  id='inputNumTombo'
+                  value={numTombo}
                   className='form-control'
-                  name='login'
-                  onChange={(e) => setLogin(e.target.value)}
+                  name='numTombo'
+                  onChange={(e) => setNumTombo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='CPF: *' htmlFor='inputCpf'>
+              <FormGroup label='Data de Aquisição: *' htmlFor='inputDtAquisicao'>
                 <input
-                  type='text'
+                  type='date'
                   maxLength='11'
-                  id='inputCpf'
-                  value={cpf}
+                  id='inputDtAquisicao'
+                  value={dataAquisicao}
                   className='form-control'
-                  name='cpf'
-                  onChange={(e) => setCpf(e.target.value)}
+                  name='dataAquisicao'
+                  onChange={(e) => setDataAquisicao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Senha: *' htmlFor='inputSenha'>
+              <FormGroup label='Tipo de Aquisição: *' htmlFor='inputTipoAquisicao'>
                 <input
-                  type='password'
-                  id='inputSenha'
-                  value={senha}
+                  type='text'
+                  id='inputTipoAquisicao'
+                  value={tipoAquisicao}
                   className='form-control'
-                  name='senha'
-                  onChange={(e) => setSenha(e.target.value)}
+                  name='tipoAquisicao'
+                  onChange={(e) => setTipoAquisicao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Repita a Senha: *' htmlFor='inputRepitaSenha'>
+              <FormGroup label='Valor: *' htmlFor='inputValor'>
                 <input
-                  type='password'
-                  id='inputRepitaSenha'
-                  value={senhaRepeticao}
+                  type='text'
+                  id='inputValor'
+                  value={valor}
                   className='form-control'
-                  name='senhaRepeticao'
-                  onChange={(e) => setSenhaRepeticao(e.target.value)}
+                  name='valor'
+                  onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <input
                   className='form-check-input'
                   type='checkbox'
@@ -152,7 +152,7 @@ function CadastroExemplar() {
                   onChange={(e) => setAdmin(e.target.checked)}
                 />
                 Administrador
-              </FormGroup>
+              </FormGroup> */}
               <Stack spacing={1} padding={1} direction='row'>
                 <button
                   onClick={salvar}

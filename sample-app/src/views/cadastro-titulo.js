@@ -22,28 +22,64 @@ function CadastroTitulo() {
   const baseURL = `${BASE_URL}/cursos`;
 
   const [id, setId] = useState('');
-  const [nome, setNome] = useState('');
-  const [idCoordenador, setIdCoordenador] = useState(0);
+  const [titulo, setTitulo] = useState('');
+  const [subtitulo, setSubtitulo] = useState('');
+  const [edicao, setEdicao] = useState('');
+  const [area, setArea] = useState('');
+  const [totalPaginas, setTotalPaginas] = useState('');
+  const [notaSerie, setNotaSerie] = useState('');
+  const [cidadePublicacao, setCidadePublicacao] = useState('');
+  const [editora, setEditora] = useState('');
+  const [dtPublicacao, setDtPublicacao] = useState('');
+  const [idioma, setIdioma] = useState('');  
+  // const [idCoordenador, setIdCoordenador] = useState(0);
 
   const [dados, setDados] = React.useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setNome('');
-      setIdCoordenador(0);
+      setTitulo('');
+      setSubtitulo('');
+      setEdicao('');
+      setArea('');
+      setTotalPaginas('');
+      setNotaSerie('');
+      setCidadePublicacao('');
+      setEditora('');
+      setDtPublicacao('');
+      setIdioma('');
+      // setIdCoordenador(0);
     } else {
       setId(dados.id);
-      setNome(dados.nome);
-      setIdCoordenador(dados.idCoordenador);
+      setTitulo(dados.titulo);
+      setSubtitulo(dados.subtitulo);
+      setEdicao(dados.edicao);
+      setArea(dados.area);
+      setTotalPaginas(dados.totalPaginas);
+      setNotaSerie(dados.notaSerie);
+      setCidadePublicacao(dados.cidadePublicacao);
+      setEditora(dados.editora);
+      setDtPublicacao(dados.dtPublicacao);
+      setIdioma(dados.idioma);
+      // setIdCoordenador(dados.idCoordenador);
     }
   }
 
   async function salvar() {
     let data = {
       id,
-      nome,
-      idCoordenador,
+      titulo,
+      subtitulo,
+      edicao,
+      area,
+      totalPaginas,
+      notaSerie,
+      cidadePublicacao,
+      editora,
+      dtPublicacao,
+      idioma,
+      // idCoordenador,
     };
     data = JSON.stringify(data);
     if (idParam == null) {
@@ -52,7 +88,7 @@ function CadastroTitulo() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Título ${nome} cadastrado com sucesso!`);
+          mensagemSucesso(`Título ${titulo} cadastrado com sucesso!`);
           navigate(`/listagem-titulos`);
         })
         .catch(function (error) {
@@ -64,7 +100,7 @@ function CadastroTitulo() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Título ${nome} alterado com sucesso!`);
+          mensagemSucesso(`Título ${titulo} alterado com sucesso!`);
           navigate(`/listagem-titulos`);
         })
         .catch(function (error) {
@@ -78,8 +114,17 @@ function CadastroTitulo() {
       setDados(response.data);
     });
     setId(dados.id);
-    setNome(dados.nome);
-    setIdCoordenador(dados.idCoordenador);
+    setTitulo(dados.titulo);
+    setSubtitulo(dados.subtitulo);
+    setEdicao(dados.edicao);
+    setArea(dados.area);
+    setTotalPaginas(dados.totalPaginas);
+    setNotaSerie(dados.notaSerie);
+    setCidadePublicacao(dados.cidadePublicacao);
+    setEditora(dados.editora);
+    setDtPublicacao(dados.dtPublicacao);
+    setIdioma(dados.idioma);
+    // setIdCoordenador(dados.idCoordenador);
   }
 
   const [dadosProfessores, setDadosProfessores] = React.useState(null);
@@ -103,17 +148,107 @@ function CadastroTitulo() {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
-              <FormGroup label='Nome: *' htmlFor='inputNome'>
+              <FormGroup label='Título: *' htmlFor='inputTitulo'>
                 <input
                   type='text'
-                  id='inputNome'
-                  value={nome}
+                  id='inputTitulo'
+                  value={titulo}
                   className='form-control'
-                  name='nome'
-                  onChange={(e) => setNome(e.target.value)}
+                  name='titulo'
+                  onChange={(e) => setTitulo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Coordenador:' htmlFor='selectCoordenador'>
+              <FormGroup label='Subtitulo: *' htmlFor='inputSubtitulo'>
+                <input
+                  type='text'
+                  id='inputSubtitulo'
+                  value={titulo}
+                  className='form-control'
+                  name='subtitulo'
+                  onChange={(e) => setSubtitulo(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Edição: *' htmlFor='inputEdicao'>
+                <input
+                  type='text'
+                  id='inputEdicao'
+                  value={edicao}
+                  className='form-control'
+                  name='edicao'
+                  onChange={(e) => setEdicao(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Área: *' htmlFor='inputArea'>
+                <input
+                  type='text'
+                  id='inputArea'
+                  value={area}
+                  className='form-control'
+                  name='area'
+                  onChange={(e) => setArea(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Total de Páginas: *' htmlFor='inputTotalPAginas'>
+                <input
+                  type='text'
+                  id='inputTotalPAginas'
+                  value={totalPaginas}
+                  className='form-control'
+                  name='totalPaginas'
+                  onChange={(e) => setTotalPaginas(e.target.value)}
+                />
+              </FormGroup>  
+              <FormGroup label='Nota de série: *' htmlFor='inputNotaSérie'>
+                <input
+                  type='text'
+                  id='inputNotaSérie'
+                  value={notaSerie}
+                  className='form-control'
+                  name='notaSerie'
+                  onChange={(e) => setNotaSerie(e.target.value)}
+                />
+              </FormGroup>  
+              <FormGroup label='Cidedae de publicação: *' htmlFor='inputCidadePublicacao'>
+                <input
+                  type='text'
+                  id='inputCidadePublicacao'
+                  value={cidadePublicacao}
+                  className='form-control'
+                  name='cidadePublicacao'
+                  onChange={(e) => setCidadePublicacao(e.target.value)}
+                />
+              </FormGroup>     
+              <FormGroup label='Editora: *' htmlFor='inputCidadeEditora'>
+                <input
+                  type='text'
+                  id='inputCidadeEditora'
+                  value={editora}
+                  className='form-control'
+                  name='editora'
+                  onChange={(e) => setEditora(e.target.value)}
+                />
+              </FormGroup>   
+              <FormGroup label='Data de publicação: *' htmlFor='inputDtPublicacao'>
+                <input
+                  type='date'
+                  id='inputDtPublicacao'
+                  value={dtPublicacao}
+                  className='form-control'
+                  name='dtPublicacao'
+                  onChange={(e) => setDtPublicacao(e.target.value)}
+                />
+              </FormGroup>  
+              <FormGroup label='Idioma: *' htmlFor='inputIdioma'>
+                <input
+                  type='text'
+                  id='inputIdioma'
+                  value={idioma}
+                  className='form-control'
+                  name='idioma'
+                  onChange={(e) => setIdioma(e.target.value)}
+                />
+              </FormGroup>     
+              {/* <FormGroup label='Coordenador:' htmlFor='selectCoordenador'>
                 <select
                   className='form-select'
                   id='selectCoordenador'
@@ -126,11 +261,11 @@ function CadastroTitulo() {
                   </option>
                   {dadosProfessores.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.titulo}
                     </option>
                   ))}
                 </select>
-              </FormGroup>
+              </FormGroup> */}
               <br></br>
               <Stack spacing={1} padding={1} direction='row'>
                 <button

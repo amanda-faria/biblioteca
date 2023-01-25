@@ -24,6 +24,10 @@ function ListagemTitulos() {
   const cadastrar = () => {
     navigate(`/cadastro-titulo`);
   };
+  
+  const reservar = (id) => {
+    navigate(`/reservar/${id}`);
+  };
 
   const editar = (id) => {
     navigate(`/cadastro-titulo/${id}`);
@@ -86,6 +90,12 @@ function ListagemTitulos() {
                       <td>{dado.nome}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
+                          <IconButton
+                            aria-label='reservar'
+                            onClick={() => reservar(dado.id)}
+                          >
+                            <EditIcon />
+                          </IconButton>
                           <IconButton
                             aria-label='edit'
                             onClick={() => editar(dado.id)}

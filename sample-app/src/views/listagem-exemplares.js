@@ -76,9 +76,9 @@ function ListagemExemplares() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>Login</th>
-                    <th scope='col'>CPF</th>
-                    <th scope='col'>Administrador</th>
+                    <th scope='col'>Número de Tombo </th>
+                    <th scope='col'>Data de Aquisição</th>
+                    <th scope='col'>Tipo de Aquisição </th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>

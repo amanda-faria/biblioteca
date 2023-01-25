@@ -8,16 +8,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import ArrowRight from '@mui/icons-material/ArrowRight';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+// import IconButton from '@mui/material/IconButton';
+// import Tooltip from '@mui/material/Tooltip';
+// import ArrowRight from '@mui/icons-material/ArrowRight';
+// import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import Home from '@mui/icons-material/Home';
-import Settings from '@mui/icons-material/Settings';
-import People from '@mui/icons-material/People';
-import PermMedia from '@mui/icons-material/PermMedia';
-import Dns from '@mui/icons-material/Dns';
-import Public from '@mui/icons-material/Public';
+// import Settings from '@mui/icons-material/Settings';
+// import People from '@mui/icons-material/People';
+// import PermMedia from '@mui/icons-material/PermMedia';
+// import Dns from '@mui/icons-material/Dns';
+// import Public from '@mui/icons-material/Public';
 
 
 
@@ -197,7 +197,7 @@ export default function CustomizedList() {
                 />
                 </ListItemButton>
                 </a>
-                <a href='/listagem-devolucoes'>
+                <a href='/cadastro-devolucao'>
                 <ListItemButton
                 alignItems="flex-start"
                 sx={{
@@ -235,6 +235,7 @@ export default function CustomizedList() {
                   sx={{ my: 0 }}
                 />
                 </ListItemButton>
+                <a href='/reserva'>
                 <ListItemButton
                 alignItems="flex-start"
                 sx={{
@@ -243,7 +244,7 @@ export default function CustomizedList() {
                 }}
               >
                 <ListItemText
-                  primary="Consultar Leitor"
+                  primary="Reserva"
                   primaryTypographyProps={{
                     fontSize: 15,
                     fontWeight: 'medium',
@@ -253,6 +254,27 @@ export default function CustomizedList() {
                   sx={{ my: 0 }}
                 />
                 </ListItemButton>
+                </a>
+                <a href='/renovar'>
+                <ListItemButton
+                alignItems="flex-start"
+                sx={{
+                  px: 3,
+                  pt: 2.5,
+                }}
+              >
+                <ListItemText
+                  primary="Renovar"
+                  primaryTypographyProps={{
+                    fontSize: 15,
+                    fontWeight: 'medium',
+                    lineHeight: '20px',
+                    mb: '2px',
+                  }}
+                  sx={{ my: 0 }}
+                />
+                </ListItemButton>
+                </a>
             </Box>
           </FireNav>
         </Paper>
