@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/professores`;
+const baseURL = `${BASE_URL}/funcionario`;
 
 function ListagemFuncionarios() {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ function ListagemFuncionarios() {
                   <tr>
                     <th scope='col'>Nome</th>
                     <th scope='col'>Email</th>
-                    <th scope='col'>Celular</th>
+                    <th scope='col'>Telefone</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
@@ -89,7 +89,7 @@ function ListagemFuncionarios() {
                     <tr key={dado.id}>
                       <td>{dado.nome}</td>
                       <td>{dado.email}</td>
-                      <td>{dado.celular}</td>
+                      <td>{dado.telefone}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
