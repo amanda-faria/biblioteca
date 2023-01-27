@@ -177,7 +177,7 @@ export default function CustomizedList() {
                 />
                 </ListItemButton>
                 </a>
-                <a href='/listagem-emprestimos'>
+                <a href='/cadastro-emprestimo'>
                 <ListItemButton
                 alignItems="flex-start"
                 sx={{
