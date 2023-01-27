@@ -21,6 +21,8 @@ function CadastroDevolucao() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState('');
+  const [numTombo, setNumTombo] = useState('');
+
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
@@ -32,6 +34,7 @@ function CadastroDevolucao() {
   function inicializar() {
     if (idParam == null) {
       setId('');
+      setNumTombo('');
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -39,6 +42,8 @@ function CadastroDevolucao() {
       // setAdmin(false);
     } else {
       setId(dados.id);
+      setNumTombo(dados.setNumTombo);
+
       // setLogin(dados.login);
       // setCpf(dados.cpf);
       // setSenha('');
@@ -48,7 +53,7 @@ function CadastroDevolucao() {
   }
 
   async function salvar() {
-    let data = { id, /*login, cpf, senha, senhaRepeticao, admin*/ };
+    let data = { id, numTombo /*login, cpf, senha, senhaRepeticao, admin*/ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -82,6 +87,7 @@ function CadastroDevolucao() {
       setDados(response.data);
     });
     setId(dados.id);
+    setNumTombo(dados.numTombo);
     // setLogin(dados.login);
     // setCpf(dados.cpf);
     // setSenha('');
@@ -109,6 +115,16 @@ function CadastroDevolucao() {
                   className='form-control'
                   name='id'
                   onChange={(e) => setId(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Número de Tombo: *' htmlFor='inputNumTombo'>
+                <input
+                  type='text'
+                  id='inputNumTombo'
+                  value={numTombo}
+                  className='form-control'
+                  name='id'
+                  onChange={(e) => setNumTombo(e.target.value)}
                 />
               </FormGroup>
               {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>
