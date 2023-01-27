@@ -76,7 +76,7 @@ function ListagemLeitores() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>Matrícula</th>
+                    <th scope='col'>ID Leitor</th>
                     <th scope='col'>Nome</th>
                     <th scope='col'>Email</th>
                     <th scope='col'>Celular</th>
