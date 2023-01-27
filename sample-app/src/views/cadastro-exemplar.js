@@ -18,7 +18,7 @@ function CadastroExemplar() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/usuarios`;
+  const baseURL = `${BASE_URL}/exemplar`;
 
   const [id, setId] = useState('');
   const [numTombo, setNumTombo] = useState('');
@@ -38,7 +38,7 @@ function CadastroExemplar() {
       setValor('');
       // setAdmin(false);
     } else {
-      setId(dados.id);
+      setId(dados.idExemplar);
       setNumTombo(dados.numTombo);
       setDataAquisicao(dados.dataAquisicao);
       setTipoAquisicao('');

@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/usuarios`;
+const baseURL = `${BASE_URL}/exemplar`;
 
 function ListagemExemplares() {
   const navigate = useNavigate();
@@ -85,9 +85,9 @@ function ListagemExemplares() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.login}</td>
-                      <td>{dado.cpf}</td>
-                      <td>{dado.admin ? 'Sim' : 'Não'}</td>
+                      <td>{dado.numTombo}</td>
+                      <td>{dado.dtAquisicao}</td>
+                      <td>{dado.tipoAquisicao}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
