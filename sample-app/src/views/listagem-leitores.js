@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/alunos`;
+const baseURL = `${BASE_URL}/leitor`;
 
 function ListagemLeitores() {
   const navigate = useNavigate();
@@ -86,10 +86,10 @@ function ListagemLeitores() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.matricula}</td>
+                      <td>{dado.id}</td>
                       <td>{dado.nome}</td>
                       <td>{dado.email}</td>
-                      <td>{dado.celular}</td>
+                      <td>{dado.telefone}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
