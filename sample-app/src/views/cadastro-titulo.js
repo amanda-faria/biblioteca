@@ -19,7 +19,7 @@ function CadastroTitulo() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/cursos`;
+  const baseURL = `${BASE_URL}/titulo`;
 
   const [id, setId] = useState('');
   const [titulo, setTitulo] = useState('');
@@ -127,20 +127,20 @@ function CadastroTitulo() {
     // setIdCoordenador(dados.idCoordenador);
   }
 
-  const [dadosProfessores, setDadosProfessores] = React.useState(null);
+  // const [dadosProfessores, setDadosProfessores] = React.useState(null);
 
-  useEffect(() => {
-    axios.get(`${BASE_URL}/professores`).then((response) => {
-      setDadosProfessores(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${BASE_URL}/titulo`).then((response) => {
+  //     setDadosProfessores(response.data);
+  //   });
+  // }, []);
 
   useEffect(() => {
     buscar(); // eslint-disable-next-line
   }, [id]);
 
   if (!dados) return null;
-  if (!dadosProfessores) return null;
+  // if (!dadosProfessores) return null;
 
   return (
     <div className='container'>

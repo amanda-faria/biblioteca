@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/cursos`;
+const baseURL = `${BASE_URL}/titulo`;
 
 function ListagemTitulos() {
   const navigate = useNavigate();
@@ -81,13 +81,16 @@ function ListagemTitulos() {
                 <thead>
                   <tr>
                     <th scope='col'>Nome</th>
+                    <th scope='col'>Editora</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.nome}</td>
+                      <td>{dado.titulo}</td>
+                      <td>{dado.editora}</td>
+
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
