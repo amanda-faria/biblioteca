@@ -18,7 +18,7 @@ function CadastroFuncionario() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/professores`;
+  const baseURL = `${BASE_URL}/funcionario`;
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
