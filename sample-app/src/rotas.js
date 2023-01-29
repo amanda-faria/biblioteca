@@ -6,7 +6,6 @@ import ListagemExemplares from './views/listagem-exemplares';
 import ListagemTitulos from './views/listagem-titulos';
 import ListagemFuncionarios from './views/listagem-funcionarios';
 import ListagemLeitores from './views/listagem-leitores';
-//import ListagemAlunos from './views/listagem-alunos';
 
 import Login from './views/login';
 import CadastroDevolucao from './views/cadastro-devolucao';
@@ -19,23 +18,19 @@ import CadastroLeitor from './views/cadastro-leitor';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Reserva from './views/reservar';
 import Renovar from './views/renovar';
+import CadastroDocumento from './views/cadastro-documento';
+import ListagemDocumentos from './views/listagem-documentos';
 
 
 function Rotas(props) {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path='/login' element={<Login />} />
-        <Route path='/cadastro-usuarios/:idParam?'element={<CadastroUsuario />}/>
-        <Route path='/cadastro-cursos/:idParam?' element={<CadastroCurso />} />
-        <Route
-          path='/cadastro-professores/:idParam?'
-          element={<CadastroProfessor />}
-        />
+        <Route path='/cadastro-exemplar/:idParam?' element={<CadastroExemplar />} />
+        <Route path='/cadastro-titulo/:idParam?' element={<CadastroTitulo />} />
         <Route path='/cadastro-leitor/:idParam?' element={<CadastroLeitor />} />
-        <Route path='/listagem-usuarios' element={<ListagemUsuarios />} />
-        <Route path='/listagem-cursos' element={<ListagemCursos />} />
-        <Route path='/listagem-professores' element={<ListagemProfessores />} /> */}
+        <Route path='/cadastro-funcionario/:idParam?' element={<CadastroFuncionario />} />
+        <Route path='/cadastro-documento/:idParam?' element={<CadastroDocumento />} />
         <Route path='/login' element={<Login />} />
         <Route path='/listagem-leitores' element={<ListagemLeitores />} />
         <Route path='/cadastro-leitor' element={<CadastroLeitor />} />
@@ -49,6 +44,8 @@ function Rotas(props) {
         <Route path='/cadastro-emprestimo' element={<CadastroEmprestimo />} />
         <Route path='/listagem-devolucoes' element={<ListagemDevolucoes />} />
         <Route path='/cadastro-devolucao' element={<CadastroDevolucao />} />
+        <Route path='/cadastro-documento' element={<CadastroDocumento />} />
+        <Route path='/listagem-documentos' element={<ListagemDocumentos />} />
         <Route path='/reserva' element={<Reserva />} />
         <Route path='/renovar' element={<Renovar />} />
 

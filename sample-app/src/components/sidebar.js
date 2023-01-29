@@ -58,7 +58,7 @@ export default function CustomizedList() {
       >
         <Paper elevation={0} sx={{ maxWidth: 256 }}>
           <FireNav component="nav" disablePadding>
-            <ListItemButton component="a" href="#customized-list">
+            {/*<ListItemButton component="a" href="#customized-list">
               <ListItemIcon sx={{ fontSize: 25 }}>📚</ListItemIcon>
               <ListItemText
                 sx={{ my: 0 }}
@@ -70,7 +70,7 @@ export default function CustomizedList() {
                 }}
               />
             </ListItemButton>
-            <Divider />
+              <Divider />*/}
             <ListItem component="div" disablePadding>
               <ListItemButton sx={{ height: 56 }}>
                 <ListItemIcon>
@@ -217,6 +217,7 @@ export default function CustomizedList() {
                 />
                 </ListItemButton>
                 </a>
+                <a href='/listagem-documentos'>
                 <ListItemButton
                 alignItems="flex-start"
                 sx={{
@@ -225,7 +226,7 @@ export default function CustomizedList() {
                 }}
               >
                 <ListItemText  
-                  primary="Configurar Prazos"
+                  primary="Configurar Documentos"
                   primaryTypographyProps={{
                     fontSize: 15,
                     fontWeight: 'medium',
@@ -235,6 +236,7 @@ export default function CustomizedList() {
                   sx={{ my: 0 }}
                 />
                 </ListItemButton>
+                </a>
                 <a href='/reserva'>
                 <ListItemButton
                 alignItems="flex-start"

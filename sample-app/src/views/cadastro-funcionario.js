@@ -130,7 +130,7 @@ function CadastroFuncionario() {
 
   useEffect(() => {
     buscar(); // eslint-disable-next-line
-  }, []);
+  }, [id]);
 
   if (!dados) return null;
 
@@ -140,6 +140,17 @@ function CadastroFuncionario() {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
+            <FormGroup label='ID: ' htmlFor='inputId'>
+                <input
+                  type='number'
+                  maxLength='11'
+                  id='inputId'
+                  value={id}
+                  className='form-control'
+                  name='id'
+                  onChange={(e) => setId(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup label='Nome: *' htmlFor='inputNome'>
                 <input
                   type='text'
