@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-import Card from '../components/card';
+import Card from "../components/card";
 
-import FormGroup from '../components/form-group';
+import FormGroup from "../components/form-group";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 function CadastroTitulo() {
   const { idParam } = useParams();
@@ -21,34 +19,34 @@ function CadastroTitulo() {
 
   const baseURL = `${BASE_URL}/titulo`;
 
-  const [id, setId] = useState('');
-  const [titulo, setTitulo] = useState('');
-  const [subtitulo, setSubtitulo] = useState('');
-  const [edicao, setEdicao] = useState('');
-  const [area, setArea] = useState('');
-  const [totalPaginas, setTotalPaginas] = useState('');
-  const [notaSerie, setNotaSerie] = useState('');
-  const [cidadePublicacao, setCidadePublicacao] = useState('');
-  const [editora, setEditora] = useState('');
-  const [dtPublicacao, setDtPublicacao] = useState('');
-  const [idioma, setIdioma] = useState('');  
+  const [id, setId] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [subtitulo, setSubtitulo] = useState("");
+  const [edicao, setEdicao] = useState("");
+  const [area, setArea] = useState("");
+  const [totalPaginas, setTotalPaginas] = useState("");
+  const [notaSerie, setNotaSerie] = useState("");
+  const [cidadePublicacao, setCidadePublicacao] = useState("");
+  const [editora, setEditora] = useState("");
+  const [dtPublicacao, setDtPublicacao] = useState("");
+  const [idioma, setIdioma] = useState("");
   // const [idCoordenador, setIdCoordenador] = useState(0);
 
   const [dados, setDados] = React.useState([]);
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
-      setTitulo('');
-      setSubtitulo('');
-      setEdicao('');
-      setArea('');
-      setTotalPaginas('');
-      setNotaSerie('');
-      setCidadePublicacao('');
-      setEditora('');
-      setDtPublicacao('');
-      setIdioma('');
+      setId("");
+      setTitulo("");
+      setSubtitulo("");
+      setEdicao("");
+      setArea("");
+      setTotalPaginas("");
+      setNotaSerie("");
+      setCidadePublicacao("");
+      setEditora("");
+      setDtPublicacao("");
+      setIdioma("");
       // setIdCoordenador(0);
     } else {
       setId(dados.id);
@@ -85,7 +83,7 @@ function CadastroTitulo() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} cadastrado com sucesso!`);
@@ -97,7 +95,7 @@ function CadastroTitulo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} alterado com sucesso!`);
@@ -143,111 +141,120 @@ function CadastroTitulo() {
   // if (!dadosProfessores) return null;
 
   return (
-    <div className='container'>
-      <Card title='Cadastro de Título'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
-              <FormGroup label='Título: *' htmlFor='inputTitulo'>
+    <div className="new-container">
+      <Card title="Cadastro de Título">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
+              <FormGroup label="Título: *" htmlFor="inputTitulo">
                 <input
-                  type='text'
-                  id='inputTitulo'
+                  type="text"
+                  id="inputTitulo"
                   value={titulo}
-                  className='form-control'
-                  name='titulo'
+                  className="form-control"
+                  name="titulo"
                   onChange={(e) => setTitulo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Subtitulo: *' htmlFor='inputSubtitulo'>
+              <FormGroup label="Subtitulo: *" htmlFor="inputSubtitulo">
                 <input
-                  type='text'
-                  id='inputSubtitulo'
+                  type="text"
+                  id="inputSubtitulo"
                   value={titulo}
-                  className='form-control'
-                  name='subtitulo'
+                  className="form-control"
+                  name="subtitulo"
                   onChange={(e) => setSubtitulo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Edição: *' htmlFor='inputEdicao'>
+              <FormGroup label="Edição: *" htmlFor="inputEdicao">
                 <input
-                  type='text'
-                  id='inputEdicao'
+                  type="text"
+                  id="inputEdicao"
                   value={edicao}
-                  className='form-control'
-                  name='edicao'
+                  className="form-control"
+                  name="edicao"
                   onChange={(e) => setEdicao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Área: *' htmlFor='inputArea'>
+              <FormGroup label="Área: *" htmlFor="inputArea">
                 <input
-                  type='text'
-                  id='inputArea'
+                  type="text"
+                  id="inputArea"
                   value={area}
-                  className='form-control'
-                  name='area'
+                  className="form-control"
+                  name="area"
                   onChange={(e) => setArea(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Total de Páginas: *' htmlFor='inputTotalPAginas'>
+              <FormGroup
+                label="Total de Páginas: *"
+                htmlFor="inputTotalPAginas"
+              >
                 <input
-                  type='text'
-                  id='inputTotalPAginas'
+                  type="text"
+                  id="inputTotalPAginas"
                   value={totalPaginas}
-                  className='form-control'
-                  name='totalPaginas'
+                  className="form-control"
+                  name="totalPaginas"
                   onChange={(e) => setTotalPaginas(e.target.value)}
                 />
-              </FormGroup>  
-              <FormGroup label='Nota de série: *' htmlFor='inputNotaSérie'>
+              </FormGroup>
+              <FormGroup label="Nota de série: *" htmlFor="inputNotaSérie">
                 <input
-                  type='text'
-                  id='inputNotaSérie'
+                  type="text"
+                  id="inputNotaSérie"
                   value={notaSerie}
-                  className='form-control'
-                  name='notaSerie'
+                  className="form-control"
+                  name="notaSerie"
                   onChange={(e) => setNotaSerie(e.target.value)}
                 />
-              </FormGroup>  
-              <FormGroup label='Cidedae de publicação: *' htmlFor='inputCidadePublicacao'>
+              </FormGroup>
+              <FormGroup
+                label="Cidedae de publicação: *"
+                htmlFor="inputCidadePublicacao"
+              >
                 <input
-                  type='text'
-                  id='inputCidadePublicacao'
+                  type="text"
+                  id="inputCidadePublicacao"
                   value={cidadePublicacao}
-                  className='form-control'
-                  name='cidadePublicacao'
+                  className="form-control"
+                  name="cidadePublicacao"
                   onChange={(e) => setCidadePublicacao(e.target.value)}
                 />
-              </FormGroup>     
-              <FormGroup label='Editora: *' htmlFor='inputCidadeEditora'>
+              </FormGroup>
+              <FormGroup label="Editora: *" htmlFor="inputCidadeEditora">
                 <input
-                  type='text'
-                  id='inputCidadeEditora'
+                  type="text"
+                  id="inputCidadeEditora"
                   value={editora}
-                  className='form-control'
-                  name='editora'
+                  className="form-control"
+                  name="editora"
                   onChange={(e) => setEditora(e.target.value)}
                 />
-              </FormGroup>   
-              <FormGroup label='Data de publicação: *' htmlFor='inputDtPublicacao'>
+              </FormGroup>
+              <FormGroup
+                label="Data de publicação: *"
+                htmlFor="inputDtPublicacao"
+              >
                 <input
-                  type='date'
-                  id='inputDtPublicacao'
+                  type="date"
+                  id="inputDtPublicacao"
                   value={dtPublicacao}
-                  className='form-control'
-                  name='dtPublicacao'
+                  className="form-control"
+                  name="dtPublicacao"
                   onChange={(e) => setDtPublicacao(e.target.value)}
                 />
-              </FormGroup>  
-              <FormGroup label='Idioma: *' htmlFor='inputIdioma'>
+              </FormGroup>
+              <FormGroup label="Idioma: *" htmlFor="inputIdioma">
                 <input
-                  type='text'
-                  id='inputIdioma'
+                  type="text"
+                  id="inputIdioma"
                   value={idioma}
-                  className='form-control'
-                  name='idioma'
+                  className="form-control"
+                  name="idioma"
                   onChange={(e) => setIdioma(e.target.value)}
                 />
-              </FormGroup>     
+              </FormGroup>
               {/* <FormGroup label='Coordenador:' htmlFor='selectCoordenador'>
                 <select
                   className='form-select'
@@ -267,18 +274,18 @@ function CadastroTitulo() {
                 </select>
               </FormGroup> */}
               <br></br>
-              <Stack spacing={1} padding={1} direction='row'>
+              <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
-                  type='button'
-                  className='btn btn-success'
+                  type="button"
+                  className="btn btn-success"
                 >
                   Salvar
                 </button>
                 <button
                   onClick={inicializar}
-                  type='button'
-                  className='btn btn-danger'
+                  type="button"
+                  className="btn btn-danger"
                 >
                   Cancelar
                 </button>

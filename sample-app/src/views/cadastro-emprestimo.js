@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-import Card from '../components/card';
-import FormGroup from '../components/form-group';
+import Card from "../components/card";
+import FormGroup from "../components/form-group";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 function CadastroEmprestimo() {
   const { idParam } = useParams();
@@ -20,7 +18,7 @@ function CadastroEmprestimo() {
 
   const baseURL = `${BASE_URL}/usuarios`;
 
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
@@ -31,7 +29,7 @@ function CadastroEmprestimo() {
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
+      setId("");
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -48,12 +46,12 @@ function CadastroEmprestimo() {
   }
 
   async function salvar() {
-    let data = { id, /*login, cpf, senha, senhaRepeticao, admin */};
+    let data = { id /*login, cpf, senha, senhaRepeticao, admin */ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} cadastrado com sucesso!`);
@@ -65,7 +63,7 @@ function CadastroEmprestimo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} alterado com sucesso!`);
@@ -96,18 +94,18 @@ function CadastroEmprestimo() {
   if (!dados) return null;
 
   return (
-    <div className='container'>
-      <Card title='Cadastro de Empréstimo'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
-              <FormGroup label='Id do Leitor: *' htmlFor='inputIdLeitor'>
+    <div className="new-container">
+      <Card title="Cadastro de Empréstimo">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
+              <FormGroup label="Id do Leitor: *" htmlFor="inputIdLeitor">
                 <input
-                  type='text'
-                  id='inputIdLeitor'
+                  type="text"
+                  id="inputIdLeitor"
                   value={id}
-                  className='form-control'
-                  name='id'
+                  className="form-control"
+                  name="id"
                   onChange={(e) => setId(e.target.value)}
                 />
               </FormGroup>
@@ -153,18 +151,18 @@ function CadastroEmprestimo() {
                 />
                 Administrador
               </FormGroup> */}
-              <Stack spacing={1} padding={1} direction='row'>
+              <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
-                  type='button'
-                  className='btn btn-success'
+                  type="button"
+                  className="btn btn-success"
                 >
                   Salvar
                 </button>
                 <button
                   onClick={inicializar}
-                  type='button'
-                  className='btn btn-danger'
+                  type="button"
+                  className="btn btn-danger"
                 >
                   Cancelar
                 </button>

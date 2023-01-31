@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-import Card from '../components/card';
-import FormGroup from '../components/form-group';
+import Card from "../components/card";
+import FormGroup from "../components/form-group";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 function CadastroDevolucao() {
   const { idParam } = useParams();
@@ -20,8 +18,8 @@ function CadastroDevolucao() {
 
   const baseURL = `${BASE_URL}/usuarios`;
 
-  const [id, setId] = useState('');
-  const [numTombo, setNumTombo] = useState('');
+  const [id, setId] = useState("");
+  const [numTombo, setNumTombo] = useState("");
 
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
@@ -33,8 +31,8 @@ function CadastroDevolucao() {
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
-      setNumTombo('');
+      setId("");
+      setNumTombo("");
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -58,7 +56,7 @@ function CadastroDevolucao() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Devolução ${id} cadastrado com sucesso!`);
@@ -70,7 +68,7 @@ function CadastroDevolucao() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Devolução ${id} alterado com sucesso!`);
@@ -102,28 +100,28 @@ function CadastroDevolucao() {
   if (!dados) return null;
 
   return (
-    <div className='container'>
-      <Card title='Cadastro de Devolução'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
-              <FormGroup label='ID Leitor: *' htmlFor='inputLeitor'>
+    <div className="new-container">
+      <Card title="Cadastro de Devolução">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
+              <FormGroup label="ID Leitor: *" htmlFor="inputLeitor">
                 <input
-                  type='text'
-                  id='inputLeitor'
+                  type="text"
+                  id="inputLeitor"
                   value={id}
-                  className='form-control'
-                  name='id'
+                  className="form-control"
+                  name="id"
                   onChange={(e) => setId(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Número de Tombo: *' htmlFor='inputNumTombo'>
+              <FormGroup label="Número de Tombo: *" htmlFor="inputNumTombo">
                 <input
-                  type='text'
-                  id='inputNumTombo'
+                  type="text"
+                  id="inputNumTombo"
                   value={numTombo}
-                  className='form-control'
-                  name='id'
+                  className="form-control"
+                  name="id"
                   onChange={(e) => setNumTombo(e.target.value)}
                 />
               </FormGroup>
@@ -169,18 +167,18 @@ function CadastroDevolucao() {
                 />
                 Administrador
               </FormGroup> */}
-              <Stack spacing={1} padding={1} direction='row'>
+              <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
-                  type='button'
-                  className='btn btn-success'
+                  type="button"
+                  className="btn btn-success"
                 >
                   Salvar
                 </button>
                 <button
                   onClick={inicializar}
-                  type='button'
-                  className='btn btn-danger'
+                  type="button"
+                  className="btn btn-danger"
                 >
                   Cancelar
                 </button>

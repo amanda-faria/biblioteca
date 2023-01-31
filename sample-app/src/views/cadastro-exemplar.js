@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-import Card from '../components/card';
-import FormGroup from '../components/form-group';
+import Card from "../components/card";
+import FormGroup from "../components/form-group";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 function CadastroExemplar() {
   const { idParam } = useParams();
@@ -20,40 +18,40 @@ function CadastroExemplar() {
 
   const baseURL = `${BASE_URL}/exemplar`;
 
-  const [id, setId] = useState('');
-  const [numTombo, setNumTombo] = useState('');
-  const [dataAquisicao, setDataAquisicao] = useState('');
-  const [tipoAquisicao, setTipoAquisicao] = useState('');
-  const [valor, setValor] = useState('');
+  const [id, setId] = useState("");
+  const [numTombo, setNumTombo] = useState("");
+  const [dataAquisicao, setDataAquisicao] = useState("");
+  const [tipoAquisicao, setTipoAquisicao] = useState("");
+  const [valor, setValor] = useState("");
   // const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
-      setNumTombo('');
-      setDataAquisicao('');
-      setTipoAquisicao('');
-      setValor('');
+      setId("");
+      setNumTombo("");
+      setDataAquisicao("");
+      setTipoAquisicao("");
+      setValor("");
       // setAdmin(false);
     } else {
       setId(dados.idExemplar);
       setNumTombo(dados.numTombo);
       setDataAquisicao(dados.dataAquisicao);
-      setTipoAquisicao('');
-      setValor('');
+      setTipoAquisicao("");
+      setValor("");
       // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, numTombo, dataAquisicao, tipoAquisicao , valor /* admin*/};
+    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor /* admin*/ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Exemplar ${numTombo} cadastrado com sucesso!`);
@@ -65,7 +63,7 @@ function CadastroExemplar() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Exemplar ${numTombo} alterado com sucesso!`);
@@ -84,8 +82,8 @@ function CadastroExemplar() {
     setId(dados.id);
     setNumTombo(dados.numTombo);
     setDataAquisicao(dados.dataAquisicao);
-    setTipoAquisicao('');
-    setValor('');
+    setTipoAquisicao("");
+    setValor("");
     // setAdmin(dados.admin);
   }
 
@@ -96,49 +94,55 @@ function CadastroExemplar() {
   if (!dados) return null;
 
   return (
-    <div className='container'>
-      <Card title='Cadastro de Exemplar'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
-              <FormGroup label='Número de Tombo: *' htmlFor='inputNumTombo'>
+    <div className="container-amanda">
+      <Card title="Cadastro de Exemplar">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
+              <FormGroup label="Número de Tombo: *" htmlFor="inputNumTombo">
                 <input
-                  type='text'
-                  id='inputNumTombo'
+                  type="text"
+                  id="inputNumTombo"
                   value={numTombo}
-                  className='form-control'
-                  name='numTombo'
+                  className="form-control"
+                  name="numTombo"
                   onChange={(e) => setNumTombo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Data de Aquisição: *' htmlFor='inputDtAquisicao'>
+              <FormGroup
+                label="Data de Aquisição: *"
+                htmlFor="inputDtAquisicao"
+              >
                 <input
-                  type='date'
-                  maxLength='11'
-                  id='inputDtAquisicao'
+                  type="date"
+                  maxLength="11"
+                  id="inputDtAquisicao"
                   value={dataAquisicao}
-                  className='form-control'
-                  name='dataAquisicao'
+                  className="form-control"
+                  name="dataAquisicao"
                   onChange={(e) => setDataAquisicao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Tipo de Aquisição: *' htmlFor='inputTipoAquisicao'>
+              <FormGroup
+                label="Tipo de Aquisição: *"
+                htmlFor="inputTipoAquisicao"
+              >
                 <input
-                  type='text'
-                  id='inputTipoAquisicao'
+                  type="text"
+                  id="inputTipoAquisicao"
                   value={tipoAquisicao}
-                  className='form-control'
-                  name='tipoAquisicao'
+                  className="form-control"
+                  name="tipoAquisicao"
                   onChange={(e) => setTipoAquisicao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Valor: *' htmlFor='inputValor'>
+              <FormGroup label="Valor: *" htmlFor="inputValor">
                 <input
-                  type='text'
-                  id='inputValor'
+                  type="text"
+                  id="inputValor"
                   value={valor}
-                  className='form-control'
-                  name='valor'
+                  className="form-control"
+                  name="valor"
                   onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
@@ -153,18 +157,18 @@ function CadastroExemplar() {
                 />
                 Administrador
               </FormGroup> */}
-              <Stack spacing={1} padding={1} direction='row'>
+              <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
-                  type='button'
-                  className='btn btn-success'
+                  type="button"
+                  className="btn btn-success"
                 >
                   Salvar
                 </button>
                 <button
                   onClick={inicializar}
-                  type='button'
-                  className='btn btn-danger'
+                  type="button"
+                  className="btn btn-danger"
                 >
                   Cancelar
                 </button>
