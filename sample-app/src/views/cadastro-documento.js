@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-import Card from '../components/card';
-import FormGroup from '../components/form-group';
+import Card from "../components/card";
+import FormGroup from "../components/form-group";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 function CadastroDocumento() {
   const { idParam } = useParams();
@@ -60,10 +58,12 @@ function CadastroDocumento() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
-          mensagemSucesso(`Documento ${tipoDocumento} configurado com sucesso!`);
+          mensagemSucesso(
+            `Documento ${tipoDocumento} configurado com sucesso!`
+          );
           navigate(`/listagem-documentos`);
         })
         .catch(function (error) {
@@ -72,7 +72,7 @@ function CadastroDocumento() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         })
         .then(function (response) {
           mensagemSucesso(`Documento ${tipoDocumento} alterado com sucesso!`);
@@ -114,94 +114,109 @@ function CadastroDocumento() {
   // if (!dadosCursos) return null;
 
   return (
-    <div className='container'>
-      <Card title='Configuração de prazos e devoluções'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
-              <FormGroup label='Tipo de Documento: ' htmlFor='inputTipoDocumento'>
+    <div className="new-container">
+      <Card title="Configuração de prazos e devoluções">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
+              <FormGroup
+                label="Tipo de Documento: "
+                htmlFor="inputTipoDocumento"
+              >
                 <input
                   //type='text'
-                  maxLength='11'
-                  id='inputTipoDocumento'
+                  maxLength="11"
+                  id="inputTipoDocumento"
                   value={tipoDocumento}
-                  className='form-control'
-                  name='tipoDocumento'
+                  className="form-control"
+                  name="tipoDocumento"
                   onChange={(e) => setTipoDocumento(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Prazo (em dias úteis): ' htmlFor='inputPrazo'>
+              <FormGroup label="Prazo (em dias úteis): " htmlFor="inputPrazo">
                 <input
                   //type='email'
-                  id='inputPrazo'
+                  id="inputPrazo"
                   value={prazo}
-                  className='form-control'
-                  name='prazo'
+                  className="form-control"
+                  name="prazo"
                   onChange={(e) => setPrazo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Quantidade máxima de dias de empréstimo:' htmlFor='inputQtMaximaEmprestimo'>
+              <FormGroup
+                label="Quantidade máxima de dias de empréstimo:"
+                htmlFor="inputQtMaximaEmprestimo"
+              >
                 <input
                   //type='date'
-                  id='inputQtMaximaEmprestimo'
+                  id="inputQtMaximaEmprestimo"
                   value={qtMaximaEmprestimo}
-                  className='form-control'
-                  name='qtMaximaEmprestimo'
+                  className="form-control"
+                  name="qtMaximaEmprestimo"
                   onChange={(e) => setQtMaximaEmprestimo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Valor da multa:' htmlFor='inputValor'>
+              <FormGroup label="Valor da multa:" htmlFor="inputValor">
                 <input
                   //type='text'
-                  id='inputValor'
+                  id="inputValor"
                   value={valor}
-                  className='form-control'
-                  name='valor'
+                  className="form-control"
+                  name="valor"
                   onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Possibilidade de renovação:' htmlFor='inputRenovacao'>
+              <FormGroup
+                label="Possibilidade de renovação:"
+                htmlFor="inputRenovacao"
+              >
                 <input
                   //type='text'
-                  id='inputRenovacao'
+                  id="inputRenovacao"
                   value={renovacao}
-                  className='form-control'
-                  name='renovacao'
+                  className="form-control"
+                  name="renovacao"
                   onChange={(e) => setRenovacao(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Quantidade máxima de unidades:' htmlFor='inputQtMaximaUnidade'>
+              <FormGroup
+                label="Quantidade máxima de unidades:"
+                htmlFor="inputQtMaximaUnidade"
+              >
                 <input
                   //type='number'
-                  id='inputQtMaximaUnidade'
+                  id="inputQtMaximaUnidade"
                   value={qtMaximaUnidade}
-                  className='form-control'
-                  name='qtMaximaUnidade'
+                  className="form-control"
+                  name="qtMaximaUnidade"
                   onChange={(e) => setQtMaximaUnidade(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Possibilidade de reserva:' htmlFor='inputReserva'>
+              <FormGroup
+                label="Possibilidade de reserva:"
+                htmlFor="inputReserva"
+              >
                 <input
                   //type='text'
-                  id='inputReserva'
+                  id="inputReserva"
                   value={reserva}
-                  className='form-control'
-                  name='reserva'
+                  className="form-control"
+                  name="reserva"
                   onChange={(e) => setReserva(e.target.value)}
                 />
               </FormGroup>
-              <Stack spacing={1} padding={1} direction='row'>
+              <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
-                  type='button'
-                  className='btn btn-success'
+                  type="button"
+                  className="btn btn-success"
                 >
                   Salvar
                 </button>
                 <button
                   onClick={inicializar}
-                  type='button'
-                  className='btn btn-danger'
+                  type="button"
+                  className="btn btn-danger"
                 >
                   Cancelar
                 </button>

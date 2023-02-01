@@ -1,20 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import Card from '../components/card';
+import Card from "../components/card";
 
-import { mensagemSucesso, mensagemErro } from '../components/toastr';
+import { mensagemSucesso, mensagemErro } from "../components/toastr";
 
-import '../custom.css';
+import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from 'react-router-dom';
+import Stack from "@mui/material/Stack";
+import { IconButton } from "@mui/material";
+import { Delete, Edit, AddCircle } from "@mui/icons-material";
 
-import Stack from '@mui/material/Stack';
-import { IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-
-import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import axios from "axios";
+import { BASE_URL } from "../config/axios";
 
 const baseURL = `${BASE_URL}/titulo`;
 
@@ -24,8 +21,9 @@ function ListagemTitulos() {
   const cadastrar = () => {
     navigate(`/cadastro-titulo`);
   };
-  
+
   const reservar = (id) => {
+    console.log(id);
     navigate(`/reservar/${id}`);
   };
 
@@ -41,7 +39,7 @@ function ListagemTitulos() {
     console.log(url);
     await axios
       .delete(url, data, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       })
       .then(function (response) {
         mensagemSucesso(`Título excluído com sucesso!`);
@@ -65,24 +63,24 @@ function ListagemTitulos() {
   if (!dados) return null;
 
   return (
-    <div className='container'>
-      <Card title='Listagem de Títulos'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
+    <div className="new-container">
+      <Card title="Listagem de Títulos">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
               <button
-                type='button'
-                className='btn btn-warning'
+                type="button"
+                className="btn btn-warning"
                 onClick={() => cadastrar()}
               >
                 Novo Título
               </button>
-              <table className='table table-hover'>
+              <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope='col'>Nome</th>
-                    <th scope='col'>Editora</th>
-                    <th scope='col'>Ações</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Editora</th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -92,31 +90,31 @@ function ListagemTitulos() {
                       <td>{dado.editora}</td>
 
                       <td>
-                        <Stack spacing={1} padding={0} direction='row'>
+                        <Stack spacing={1} padding={0} direction="row">
                           <IconButton
-                            aria-label='reservar'
+                            aria-label="reservar"
                             onClick={() => reservar(dado.id)}
                           >
-                            <EditIcon />
+                            <AddCircle />
                           </IconButton>
                           <IconButton
-                            aria-label='edit'
+                            aria-label="edit"
                             onClick={() => editar(dado.id)}
                           >
-                            <EditIcon />
+                            <Edit />
                           </IconButton>
                           <IconButton
-                            aria-label='delete'
+                            aria-label="delete"
                             onClick={() => excluir(dado.id)}
                           >
-                            <DeleteIcon />
+                            <Delete />
                           </IconButton>
                         </Stack>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>{' '}
+              </table>{" "}
             </div>
           </div>
         </div>
