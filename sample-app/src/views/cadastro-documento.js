@@ -20,6 +20,7 @@ function CadastroDocumento() {
 
   const baseURL = `${BASE_URL}/leitor`;
 
+  const [id, setId] = useState('');
   const [tipoDocumento, setTipoDocumento] = useState('');
   const [prazo, setPrazo] = useState('');
   const [qtMaximaEmprestimo, setQtMaximaEmprestimo] = useState('');
@@ -31,6 +32,7 @@ function CadastroDocumento() {
 
   function inicializar() {
     if (idParam == null) {
+      setId('');
       setTipoDocumento('');
       setPrazo('');
       setQtMaximaEmprestimo('');
@@ -39,6 +41,7 @@ function CadastroDocumento() {
       setQtMaximaUnidade('');
       setReserva('');
     } else {
+      setId(dados.id);
       setTipoDocumento(dados.tipoDocumento);
       setPrazo(dados.prazo);
       setQtMaximaEmprestimo(dados.qtMaximaEmprestimo);
@@ -51,7 +54,7 @@ function CadastroDocumento() {
 
   async function salvar() {
     let data = {
-      tipoDocumento, prazo, qtMaximaEmprestimo, valor, renovacao, qtMaximaUnidade,
+      id, tipoDocumento, prazo, qtMaximaEmprestimo, valor, renovacao, qtMaximaUnidade,
       reserva
     };
     if (idParam == null) {
@@ -85,6 +88,7 @@ function CadastroDocumento() {
     await axios.get(`${baseURL}/${idParam}`).then((response) => {
       setDados(response.data);
     });
+    setId(dados.id);
     setTipoDocumento(dados.tipoDocumento);
     setPrazo(dados.prazo);
     setQtMaximaEmprestimo(dados.qtMaximaEmprestimo);
