@@ -52,6 +52,7 @@ function CadastroLeitor() {
       setEmail("");
       setLogin("");
       setSenha("");
+      navigate(`/listagem-leitores`);
     } else {
       setId(dados.id);
       setNome(dados.nome);
@@ -68,6 +69,7 @@ function CadastroLeitor() {
       setEmail(dados.email);
       setLogin(dados.login);
       setSenha(dados.senha);
+      navigate(`/listagem-leitores`);
     }
   }
 
