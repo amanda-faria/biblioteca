@@ -12,13 +12,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/funcionario`;
+const baseURL = `${BASE_URL}/funcionarios`;
 
 function ListagemFuncionarios() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-funcionario`);
+    navigate(`/cadastro-funcionarios`);
   };
 
   const editar = (id) => {

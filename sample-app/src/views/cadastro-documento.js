@@ -16,7 +16,7 @@ function CadastroDocumento() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/documento`;
+  const baseURL = `${BASE_URL}/documentos`;
 
   const [id, setId] = useState('');
   const [tipoDocumento, setTipoDocumento] = useState('');

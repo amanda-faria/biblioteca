@@ -15,7 +15,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/leitor`;
+const baseURL = `${BASE_URL}/leitores`;
 
 function ListagemLeitores() {
   const navigate = useNavigate();

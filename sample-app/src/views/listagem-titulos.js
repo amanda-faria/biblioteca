@@ -13,7 +13,7 @@ import { Delete, Edit, AddCircle } from "@mui/icons-material";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/titulo`;
+const baseURL = `${BASE_URL}/titulos`;
 
 function ListagemTitulos() {
   const navigate = useNavigate();

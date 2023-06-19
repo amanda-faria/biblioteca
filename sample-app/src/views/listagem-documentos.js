@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/documento`;
+const baseURL = `${BASE_URL}/documentos`;
 
 function ListagemDocumentos() {
   const navigate = useNavigate();
