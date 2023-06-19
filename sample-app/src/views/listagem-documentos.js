@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/configuracao`;
+const baseURL = `${BASE_URL}/documento`;
 
 function ListagemDocumentos() {
   const navigate = useNavigate();
@@ -85,9 +85,9 @@ function ListagemDocumentos() {
                     <tbody>
                       {dados.map((dado) => (
                         <tr key={dado.id}>
-                          <td>{dado.nome}</td>
-                          <td>{dado.email}</td>
-                          <td>{dado.telefone}</td>
+                          <td>{dado.tipoDocumento}</td>
+                          <td>{dado.prazoEntregaQuantDias}</td>
+                          <td>{dado.quantMaximaUnidade}</td>
                           <td>
                             <Stack spacing={1} padding={0} direction="row">
                               <IconButton

@@ -19,7 +19,7 @@ function CadastroEmprestimo() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState("");
-  // const [login, setLogin] = useState('');
+  const [numeroTombo, setNumeroTombo] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
   // const [senhaRepeticao, setSenhaRepeticao] = useState('');
@@ -30,14 +30,14 @@ function CadastroEmprestimo() {
   function inicializar() {
     if (idParam == null) {
       setId("");
-      // setLogin('');
+      setNumeroTombo('');
       // setCpf('');
       // setSenha('');
       // setSenhaRepeticao('');
       // setAdmin(false);
     } else {
       setId(dados.id);
-      // setLogin(dados.login);
+      setNumeroTombo(dados.numeroTombo);
       // setCpf(dados.cpf);
       // setSenha('');
       // setSenhaRepeticao('');
@@ -46,7 +46,7 @@ function CadastroEmprestimo() {
   }
 
   async function salvar() {
-    let data = { id /*login, cpf, senha, senhaRepeticao, admin */ };
+    let data = { id, numeroTombo /*login, cpf, senha, senhaRepeticao, admin */ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -80,7 +80,7 @@ function CadastroEmprestimo() {
       setDados(response.data);
     });
     setId(dados.id);
-    // setLogin(dados.login);
+    setNumeroTombo(dados.numeroTombo);
     // setCpf(dados.cpf);
     // setSenha('');
     // setSenhaRepeticao('');
@@ -107,6 +107,16 @@ function CadastroEmprestimo() {
                   className="form-control"
                   name="id"
                   onChange={(e) => setId(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label="Número de tombo: *" htmlFor="inputNumeroTombo">
+                <input
+                  type="text"
+                  id="inputNumeroTombo"
+                  value={numeroTombo}
+                  className="form-control"
+                  name="numeroTombo"
+                  onChange={(e) => setNumeroTombo(e.target.value)}
                 />
               </FormGroup>
               {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>

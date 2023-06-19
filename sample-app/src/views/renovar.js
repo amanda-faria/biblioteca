@@ -19,7 +19,7 @@ function Renovar() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState("");
-  //   const [idTitulo, setIdTitulo] = useState('');
+  const [numeroTombo, setNumeroTombo] = useState('');
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
@@ -31,7 +31,7 @@ function Renovar() {
   function inicializar() {
     if (idParam == null) {
       setId("");
-      //   setIdTitulo('');
+      setNumeroTombo('');
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -39,7 +39,7 @@ function Renovar() {
       // setAdmin(false);
     } else {
       setId(dados.id);
-      //   setIdTitulo(dados.id);
+      setNumeroTombo(dados.numeroTombo);
       // setLogin(dados.login);
       // setCpf(dados.cpf);
       // setSenha('');
@@ -49,7 +49,7 @@ function Renovar() {
   }
 
   async function salvar() {
-    let data = { id /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
+    let data = { id, numeroTombo /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -83,7 +83,7 @@ function Renovar() {
       setDados(response.data);
     });
     setId(dados.id);
-    // setLogin(dados.login);
+    setNumeroTombo(dados.numeroTombo);
     // setCpf(dados.cpf);
     // setSenha('');
     // setSenhaRepeticao('');
@@ -110,6 +110,16 @@ function Renovar() {
                   className="form-control"
                   name="id"
                   onChange={(e) => setId(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label="Numero de tombo: *" htmlFor="inputNumeroTombo">
+                <input
+                  type="text"
+                  id="inputNumeroTombo"
+                  value={numeroTombo}
+                  className="form-control"
+                  name="numeroTombo"
+                  onChange={(e) => setNumeroTombo(e.target.value)}
                 />
               </FormGroup>
               {/* <FormGroup label='ID Titulo: *' htmlFor='inputIdTitulo'>

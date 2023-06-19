@@ -147,7 +147,7 @@ function CadastroFuncionario() {
 
   return (
     <ContentContainer title="Cadastro de Funcionário" hasOverflowY>
-      <div className="row" style={{ paddingBottom: "4em" }}>
+      <div className="row"  style={{ paddingBottom: "4em" }}>
         <div className="col-lg-12">
           <div className="bs-component">
             <FormGroup label="ID: " htmlFor="inputId">
