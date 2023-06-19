@@ -6,6 +6,7 @@ import ListagemExemplares from "./views/listagem-exemplares";
 import ListagemTitulos from "./views/listagem-titulos";
 import ListagemFuncionarios from "./views/listagem-funcionarios";
 import ListagemLeitores from "./views/listagem-leitores";
+import ListagemUsuarios from "./views/listagem-usuario";
 
 import Login from "./views/login";
 import CadastroDevolucao from "./views/cadastro-devolucao";
@@ -14,6 +15,7 @@ import CadastroExemplar from "./views/cadastro-exemplar";
 import CadastroTitulo from "./views/cadastro-titulo";
 import CadastroFuncionario from "./views/cadastro-funcionario";
 import CadastroLeitor from "./views/cadastro-leitor";
+import CadastroUsuario from "./views/cadastro-usuario";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Reservar from "./views/reservar";
@@ -63,6 +65,8 @@ function Rotas(props) {
         <Route path="/renovar" element={<Renovar />} />
         <Route path="/situacao-leitor" element={<SituacaoLeitor />} />
         <Route path="/consulta-leitor" element={<ConsultaLeitor />} />
+        <Route path="/listagem-usuarios" element={<ListagemUsuarios />} />
+        <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
       </Routes>
     </BrowserRouter>
   );

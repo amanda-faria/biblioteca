@@ -91,6 +91,27 @@ export default function CustomizedList() {
                 pb: window.open ? 2 : 0,
               }}
             >
+              <a href="/listagem-usuarios">
+                <ListItemButton
+                  alignItems="flex-start"
+                  sx={{
+                    px: 3,
+                    pt: 2.5,
+                    //pb: open ? 0 : 2.5,
+                    //'&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
+                  }}
+                >
+                  <ListItemText
+                    primary="Usuários"
+                    primaryTypographyProps={{
+                      fontSize: 15,
+                      fontWeight: "medium",
+                      lineHeight: "20px",
+                      mb: "2px",
+                    }}
+                  />
+                </ListItemButton>
+              </a>
               <a href="/listagem-funcionarios">
                 <ListItemButton
                   alignItems="flex-start"
