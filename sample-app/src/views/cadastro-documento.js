@@ -16,44 +16,41 @@ function CadastroDocumento() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/leitor`;
+  const baseURL = `${BASE_URL}/documentos`;
 
   const [id, setId] = useState('');
   const [tipoDocumento, setTipoDocumento] = useState('');
-  const [prazo, setPrazo] = useState('');
-  const [qtMaximaEmprestimo, setQtMaximaEmprestimo] = useState('');
-  const [valor, setValor] = useState('');
-  const [renovacao, setRenovacao] = useState('');
-  const [qtMaximaUnidade, setQtMaximaUnidade] = useState('');
-  const [reserva, setReserva] = useState('');
+  const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState('');
+  const [valorMulta, setValorMulta] = useState('');
+  const [permiteRenovar, setPermiteRenovar] = useState('');
+  const [quantMaximaUnidade, setQuantMaximaUnidade] = useState('');
+  const [permiteReserva, setPermiteReserva] = useState('');
   const [dados, setDados] = React.useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
       setTipoDocumento('');
-      setPrazo('');
-      setQtMaximaEmprestimo('');
-      setValor('');
-      setRenovacao('');
-      setQtMaximaUnidade('');
-      setReserva('');
+      setPrazoEntregaQuantDias('');
+      setValorMulta('');
+      setPermiteRenovar('');
+      setQuantMaximaUnidade('');
+      setPermiteReserva('');
     } else {
       setId(dados.id);
       setTipoDocumento(dados.tipoDocumento);
-      setPrazo(dados.prazo);
-      setQtMaximaEmprestimo(dados.qtMaximaEmprestimo);
-      setValor(dados.valor);
-      setRenovacao(dados.renovacao);
-      setQtMaximaUnidade(dados.qtMaximaUnidade);
-      setReserva(dados.reserva);
+      setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
+      setValorMulta(dados.valorMulta);
+      setPermiteRenovar(dados.permiteRenovar);
+      setQuantMaximaUnidade(dados.quantMaximaUnidade);
+      setPermiteReserva(dados.permiteReserva);
     }
   }
 
   async function salvar() {
     let data = {
-      id, tipoDocumento, prazo, qtMaximaEmprestimo, valor, renovacao, qtMaximaUnidade,
-      reserva
+      id, tipoDocumento, prazoEntregaQuantDias, valorMulta, permiteRenovar, quantMaximaUnidade,
+      permiteReserva
     };
     if (idParam == null) {
       await axios
@@ -90,12 +87,11 @@ function CadastroDocumento() {
     });
     setId(dados.id);
     setTipoDocumento(dados.tipoDocumento);
-    setPrazo(dados.prazo);
-    setQtMaximaEmprestimo(dados.qtMaximaEmprestimo);
-    setValor(dados.valor);
-    setRenovacao(dados.renovacao);
-    setQtMaximaUnidade(dados.qtMaximaUnidade);
-    setReserva(dados.reserva);
+    setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
+    setValorMulta(dados.valorMulta);
+    setPermiteRenovar(dados.permiteRenovar);
+    setQuantMaximaUnidade(dados.quantMaximaUnidade);
+    setPermiteReserva(dados.permiteReserva);
   }
 
   // const [dadosCursos, setDadosCursos] = React.useState(null);
@@ -133,76 +129,66 @@ function CadastroDocumento() {
                   onChange={(e) => setTipoDocumento(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label="Prazo (em dias úteis): " htmlFor="inputPrazo">
-                <input
-                  //type='email'
-                  id="inputPrazo"
-                  value={prazo}
-                  className="form-control"
-                  name="prazo"
-                  onChange={(e) => setPrazo(e.target.value)}
-                />
-              </FormGroup>
               <FormGroup
                 label="Quantidade máxima de dias de empréstimo:"
-                htmlFor="inputQtMaximaEmprestimo"
+                htmlFor="input"
               >
                 <input
                   //type='date'
-                  id="inputQtMaximaEmprestimo"
-                  value={qtMaximaEmprestimo}
+                  id="inputPrazoEntregaQuantDias"
+                  value={prazoEntregaQuantDias}
                   className="form-control"
-                  name="qtMaximaEmprestimo"
-                  onChange={(e) => setQtMaximaEmprestimo(e.target.value)}
+                  name="prazoEntregaQuantDias"
+                  onChange={(e) => setPrazoEntregaQuantDias(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label="Valor da multa:" htmlFor="inputValor">
+              <FormGroup label="Valor da multa:" htmlFor="inputValorMulta">
                 <input
                   //type='text'
-                  id="inputValor"
-                  value={valor}
+                  id="inputValorMulta"
+                  value={valorMulta}
                   className="form-control"
-                  name="valor"
-                  onChange={(e) => setValor(e.target.value)}
+                  name="valorMulta"
+                  onChange={(e) => setValorMulta(e.target.value)}
                 />
               </FormGroup>
               <FormGroup
                 label="Possibilidade de renovação:"
-                htmlFor="inputRenovacao"
+                htmlFor="inputPermiteRenovar"
               >
                 <input
                   //type='text'
-                  id="inputRenovacao"
-                  value={renovacao}
+                  id="inputPermiteRenovar"
+                  value={permiteRenovar}
                   className="form-control"
-                  name="renovacao"
-                  onChange={(e) => setRenovacao(e.target.value)}
+                  name="permiteRenovar"
+                  onChange={(e) => setPermiteRenovar(e.target.value)}
                 />
               </FormGroup>
               <FormGroup
                 label="Quantidade máxima de unidades:"
-                htmlFor="inputQtMaximaUnidade"
+                htmlFor="inputQuantMaximaUnidade"
               >
                 <input
                   //type='number'
-                  id="inputQtMaximaUnidade"
-                  value={qtMaximaUnidade}
+                  id="inputQuantMaximaUnidade"
+                  value={quantMaximaUnidade}
                   className="form-control"
-                  name="qtMaximaUnidade"
-                  onChange={(e) => setQtMaximaUnidade(e.target.value)}
+                  name="QuantMaximaUnidade"
+                  onChange={(e) => setQuantMaximaUnidade(e.target.value)}
                 />
               </FormGroup>
               <FormGroup
                 label="Possibilidade de reserva:"
-                htmlFor="inputReserva"
+                htmlFor="inputPermiteReserva"
               >
                 <input
                   //type='text'
-                  id="inputReserva"
-                  value={reserva}
+                  id="inputPermiteReserva"
+                  value={permiteReserva}
                   className="form-control"
-                  name="reserva"
-                  onChange={(e) => setReserva(e.target.value)}
+                  name="PermiteReserva"
+                  onChange={(e) => setPermiteReserva(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">

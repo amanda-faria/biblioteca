@@ -17,7 +17,7 @@ function CadastroTitulo() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/titulo`;
+  const baseURL = `${BASE_URL}/titulos`;
 
   const [id, setId] = useState("");
   const [titulo, setTitulo] = useState("");

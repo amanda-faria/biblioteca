@@ -16,7 +16,7 @@ function CadastroExemplar() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/exemplar`;
+  const baseURL = `${BASE_URL}/exemplares`;
 
   const [id, setId] = useState("");
   const [numTombo, setNumTombo] = useState("");

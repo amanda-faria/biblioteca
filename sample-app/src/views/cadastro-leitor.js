@@ -16,7 +16,7 @@ function CadastroLeitor() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/leitor`;
+  const baseURL = `${BASE_URL}/leitores`;
 
   const [id, setId] = useState("");
   const [nome, setNome] = useState("");

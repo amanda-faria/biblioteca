@@ -20,6 +20,8 @@ import Reservar from "./views/reservar";
 import Renovar from "./views/renovar";
 import CadastroDocumento from "./views/cadastro-documento";
 import ListagemDocumentos from "./views/listagem-documentos";
+import SituacaoLeitor from "./views/sitacao-leitor";
+import ConsultaLeitor from "./views/consulta-leitor";
 
 function Rotas(props) {
   return (
@@ -59,6 +61,8 @@ function Rotas(props) {
         <Route path="/listagem-documentos" element={<ListagemDocumentos />} />
         <Route path="/reservar/:idParam" element={<Reservar />} />
         <Route path="/renovar" element={<Renovar />} />
+        <Route path="/situacao-leitor" element={<SituacaoLeitor />} />
+        <Route path="/consulta-leitor" element={<ConsultaLeitor />} />
       </Routes>
     </BrowserRouter>
   );

@@ -12,14 +12,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/funcionarios`;
+const baseURL = `${BASE_URL}/exemplar`;
 
-function ListagemFuncionarios() {
+function SituacaoLeitor() {
   const navigate = useNavigate();
-
-  const cadastrar = () => {
-    navigate(`/cadastro-funcionarios`);
-  };
 
   const editar = (id) => {
     navigate(`/cadastro-funcionario/${id}`);
@@ -38,7 +34,7 @@ function ListagemFuncionarios() {
         headers: { "Content-Type": "application/json" },
       })
       .then(function (response) {
-        mensagemSucesso(`Funcionário(a) excluído com sucesso!`);
+        mensagemSucesso(`Empréstimo excluído com sucesso`);
         setDados(
           dados.filter((dado) => {
             return dado.id !== id;
@@ -46,7 +42,7 @@ function ListagemFuncionarios() {
         );
       })
       .catch(function (error) {
-        mensagemErro(`Erro ao excluir o funcionário`);
+        mensagemErro(`Erro ao excluir o empréstimo`);
       });
   }
 
@@ -59,44 +55,38 @@ function ListagemFuncionarios() {
 
   if (!dados) return null;
 
-  const handleChangeSearch = (e) => {
-    setFiltroBusca(e.target.value);
-    if (e.target.value !== "") {
-      let dadosFiltrados = dados.filter((d) =>
-        d.nome.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-      setDadosFiltrados(dadosFiltrados);
-    } else {
-      setDadosFiltrados(dados);
-    }
-  };
+//   const handleChangeSearch = (e) => {
+//     setFiltroBusca(e.target.value);
+//     if (e.target.value !== "") {
+//       let dadosFiltrados = dados.filter((d) =>
+//         d.nome.toLowerCase().includes(e.target.value.toLowerCase())
+//       );
+//       setDadosFiltrados(dadosFiltrados);
+//     } else {
+//       setDadosFiltrados(dados);
+//     }
+//   };
 
   return (
-    <ContentContainer title="Listagem de Funcionários">
+    <ContentContainer title="Situação do Leitor">
       <div className="row">
         <div className="col-lg-12">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <button
-              type="button"
-              className="btn btn-warning"
-              onClick={() => cadastrar()}
-            >
-              Novo Funcionário
-            </button>
+          {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             <TextField
               id="outlined-basic"
               label="Buscar pelo nome"
               variant="outlined"
               onChange={handleChangeSearch}
             />
-          </div>
+          </div> */}
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Email</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Título</th>
+                <th scope="col">Número de tombo</th>
+                <th scope="col">Dias de atraso</th>
+                <th scope="col">Valor da multa</th>
+                {/* <th scope="col">Ações</th> */}
               </tr>
             </thead>
             <tbody>
@@ -108,10 +98,11 @@ function ListagemFuncionarios() {
                   )
                 : dadosFiltrados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.nome}</td>
-                      <td>{dado.email}</td>
-                      <td>{dado.telefone}</td>
-                      <td>
+                      <td>"O menino maluquinho"</td>
+                      <td>{dado.numTombo}</td>
+                      <td>{dado.id}</td>
+                      <td>{dado.valor}</td>
+                      {/* <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton
                             aria-label="edit"
@@ -126,7 +117,7 @@ function ListagemFuncionarios() {
                             <DeleteIcon />
                           </IconButton>
                         </Stack>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
             </tbody>
@@ -137,4 +128,4 @@ function ListagemFuncionarios() {
   );
 }
 
-export default ListagemFuncionarios;
+export default SituacaoLeitor;

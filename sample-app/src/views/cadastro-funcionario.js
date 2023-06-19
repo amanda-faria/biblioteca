@@ -16,7 +16,7 @@ function CadastroFuncionario() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/funcionario`;
+  const baseURL = `${BASE_URL}/funcionarios`;
 
   const [id, setId] = useState("");
   const [nome, setNome] = useState("");
@@ -147,7 +147,7 @@ function CadastroFuncionario() {
 
   return (
     <ContentContainer title="Cadastro de Funcionário" hasOverflowY>
-      <div className="row" style={{ paddingBottom: "4em" }}>
+      <div className="row"  style={{ paddingBottom: "4em" }}>
         <div className="col-lg-12">
           <div className="bs-component">
             <FormGroup label="ID: " htmlFor="inputId">

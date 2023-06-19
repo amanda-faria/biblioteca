@@ -7,13 +7,13 @@ import { mensagemSucesso, mensagemErro } from "../components/toastr";
 import { useNavigate } from "react-router-dom";
 
 import Stack from "@mui/material/Stack";
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { Delete, Edit, AddCircle } from "@mui/icons-material";
 
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/titulo`;
+const baseURL = `${BASE_URL}/titulos`;
 
 function ListagemTitulos() {
   const navigate = useNavigate();
@@ -32,6 +32,8 @@ function ListagemTitulos() {
   };
 
   const [dados, setDados] = React.useState(null);
+  const [dadosFiltrados, setDadosFiltrados] = React.useState([]);
+  const [filtroBusca, setFiltroBusca] = React.useState("");
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
@@ -57,17 +59,30 @@ function ListagemTitulos() {
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
       setDados(response.data);
+      setDadosFiltrados(response.data);
     });
   }, []);
 
   if (!dados) return null;
+
+  const handleChangeSearch = (e) => {
+    setFiltroBusca(e.target.value);
+    if (e.target.value !== "") {
+      let dadosFiltrados = dados.filter((d) =>
+        d.nome.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setDadosFiltrados(dadosFiltrados);
+    } else {
+      setDadosFiltrados(dados);
+    }
+  };
 
   return (
     <div className="new-container">
       <Card title="Listagem de Títulos">
         <div className="row">
           <div className="col-lg-12">
-            <div className="bs-component">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <button
                 type="button"
                 className="btn btn-warning"
@@ -75,16 +90,29 @@ function ListagemTitulos() {
               >
                 Novo Título
               </button>
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Editora</th>
-                    <th scope="col">Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dados.map((dado) => (
+              <TextField
+                id="outlined-basic"
+                label="Buscar pelo nome"
+                variant="outlined"
+                onChange={handleChangeSearch}
+              />
+            </div>
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Editora</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!dadosFiltrados.length > 0
+                  ? filtroBusca !== "" && (
+                    <tr>
+                      <td>Nada encontrado ao filtrar</td>
+                    </tr>
+                  )
+                  : dadosFiltrados.map((dado) => (
                     <tr key={dado.id}>
                       <td>{dado.titulo}</td>
                       <td>{dado.editora}</td>
@@ -113,9 +141,8 @@ function ListagemTitulos() {
                       </td>
                     </tr>
                   ))}
-                </tbody>
-              </table>{" "}
-            </div>
+              </tbody>
+            </table>{" "}
           </div>
         </div>
       </Card>

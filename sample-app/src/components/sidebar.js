@@ -232,7 +232,7 @@ export default function CustomizedList() {
                   />
                 </ListItemButton>
               </a>
-              <a href="/reserva">
+              {/* <a href="/reserva">
                 <ListItemButton
                   alignItems="flex-start"
                   sx={{
@@ -251,7 +251,7 @@ export default function CustomizedList() {
                     sx={{ my: 0 }}
                   />
                 </ListItemButton>
-              </a>
+              </a> */}
               <a href="/renovar">
                 <ListItemButton
                   alignItems="flex-start"
@@ -262,6 +262,26 @@ export default function CustomizedList() {
                 >
                   <ListItemText
                     primary="Renovar"
+                    primaryTypographyProps={{
+                      fontSize: 15,
+                      fontWeight: "medium",
+                      lineHeight: "20px",
+                      mb: "2px",
+                    }}
+                    sx={{ my: 0 }}
+                  />
+                </ListItemButton>
+              </a>
+              <a href="/consulta-leitor">
+                <ListItemButton
+                  alignItems="flex-start"
+                  sx={{
+                    px: 3,
+                    pt: 2.5,
+                  }}
+                >
+                  <ListItemText
+                    primary="Consulta Leitor"
                     primaryTypographyProps={{
                       fontSize: 15,
                       fontWeight: "medium",
