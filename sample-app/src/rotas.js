@@ -6,7 +6,7 @@ import ListagemExemplares from "./views/listagem-exemplares";
 import ListagemTitulos from "./views/listagem-titulos";
 import ListagemFuncionarios from "./views/listagem-funcionarios";
 import ListagemLeitores from "./views/listagem-leitores";
-import ListagemUsuarios from "./views/listagem-usuario";
+import ListagemUsuarios from "./views/listagem-usuarios";
 
 import Login from "./views/login";
 import CadastroDevolucao from "./views/cadastro-devolucao";
@@ -35,21 +35,12 @@ function Rotas(props) {
         />
         <Route path="/cadastro-titulo/:idParam?" element={<CadastroTitulo />} />
         <Route path="/cadastro-leitor/:idParam?" element={<CadastroLeitor />} />
-        <Route
-          path="/cadastro-funcionario/:idParam?"
-          element={<CadastroFuncionario />}
-        />
-        <Route
-          path="/cadastro-documento/:idParam?"
-          element={<CadastroDocumento />}
-        />
+        <Route path="/cadastro-funcionario/:idParam?" element={<CadastroFuncionario />} />
+        <Route path="/cadastro-documento/:idParam?" element={<CadastroDocumento />} />
         <Route path="/login" element={<Login />} />
         <Route path="/listagem-leitores" element={<ListagemLeitores />} />
         <Route path="/cadastro-leitor" element={<CadastroLeitor />} />
-        <Route
-          path="/listagem-funcionarios"
-          element={<ListagemFuncionarios />}
-        />
+        <Route path="/listagem-funcionarios" element={<ListagemFuncionarios />} />
         <Route path="/cadastro-funcionario" element={<CadastroFuncionario />} />
         <Route path="/listagem-titulos" element={<ListagemTitulos />} />
         <Route path="/cadastro-titulo" element={<CadastroTitulo />} />
