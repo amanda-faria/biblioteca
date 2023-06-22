@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useRef , useEffect , useState} from "react";
 import "bootswatch/dist/flatly/bootstrap.css";
 import "toastr/build/toastr.min";
 import "toastr/build/toastr.css";
@@ -7,23 +7,15 @@ import Navbar from "./components/navbar.js";
 import Rotas from "./rotas.js";
 import Sidebar from "./components/sidebar.js";
 import { Grid } from "@mui/material";
+import { APP_URL } from './config/app';
+import { BrowserRouter as Router, Route, Switch, Link, useLocation } from 'react-router-dom';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <Grid container style={{ height: "100%" }}>
-          <Grid xs={2}>
-            <Sidebar />
-          </Grid>
-          <Grid xs={10}>
-            <Rotas />
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <Rotas />
+    </Router>
+  );
 }
 
 export default App;

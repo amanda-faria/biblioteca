@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useRef , useEffect , useState} from "react";
 import Box from "@mui/material/Box";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
@@ -34,6 +34,15 @@ const FireNav = styled(List)({
 });
 
 export default function CustomizedList() {
+  const [role, setRole] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setRole((prev) => jwt.rule)
+    setIsAdmin((prev) => jwt.rule === "manager")
+  }, []);
+  //usarios, funcionarios
   return (
     <Box sx={{ display: "flex", height: "90vh" }}>
       <ThemeProvider
@@ -91,48 +100,52 @@ export default function CustomizedList() {
                 pb: window.open ? 2 : 0,
               }}
             >
-              <a href="/listagem-usuarios">
-                <ListItemButton
-                  alignItems="flex-start"
-                  sx={{
-                    px: 3,
-                    pt: 2.5,
-                    //pb: open ? 0 : 2.5,
-                    //'&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-                  }}
-                >
-                  <ListItemText
-                    primary="Usuários"
-                    primaryTypographyProps={{
-                      fontSize: 15,
-                      fontWeight: "medium",
-                      lineHeight: "20px",
-                      mb: "2px",
+              {isAdmin ? (
+              <>
+                <a href="/listagem-usuarios">
+                  <ListItemButton
+                    alignItems="flex-start"
+                    sx={{
+                      px: 3,
+                      pt: 2.5,
+                      //pb: open ? 0 : 2.5,
+                      //'&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
                     }}
-                  />
-                </ListItemButton>
-              </a>
-              <a href="/listagem-funcionarios">
-                <ListItemButton
-                  alignItems="flex-start"
-                  sx={{
-                    px: 3,
-                    pt: 2.5,
-                    //pb: open ? 0 : 2.5,
-                    //'&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-                  }}
-                >
-                  <ListItemText
-                    primary="Funcionários"
-                    primaryTypographyProps={{
-                      fontSize: 15,
-                      fontWeight: "medium",
-                      lineHeight: "20px",
-                      mb: "2px",
+                  >
+                    <ListItemText
+                      primary="Usuários"
+                      primaryTypographyProps={{
+                        fontSize: 15,
+                        fontWeight: "medium",
+                        lineHeight: "20px",
+                        mb: "2px",
+                      }}
+                    />
+                  </ListItemButton>
+                </a>
+                <a href="/listagem-funcionarios">
+                  <ListItemButton
+                    alignItems="flex-start"
+                    sx={{
+                      px: 3,
+                      pt: 2.5,
+                      //pb: open ? 0 : 2.5,
+                      //'&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
                     }}
-                  />
-                </ListItemButton>
-              </a>
+                  >
+                    <ListItemText
+                      primary="Funcionários"
+                      primaryTypographyProps={{
+                        fontSize: 15,
+                        fontWeight: "medium",
+                        lineHeight: "20px",
+                        mb: "2px",
+                      }}
+                    />
+                  </ListItemButton>
+                </a>
+              </>
+              ) : null}
               <a href="/listagem-leitores">
                 <ListItemButton
                   alignItems="flex-start"
