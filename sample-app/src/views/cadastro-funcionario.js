@@ -92,7 +92,6 @@ function CadastroFuncionario() {
       login,
       senha,
     };
-    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {

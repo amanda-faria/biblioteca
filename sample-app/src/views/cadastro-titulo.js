@@ -32,7 +32,6 @@ function CadastroTitulo() {
   const [idioma, setIdioma] = useState("");
   const [dados, setDados] = React.useState([]);
   const [token, setToken] = useState("");
-  // const [idCoordenador, setIdCoordenador] = useState(0);
 
   function inicializar() {
     if (idParam == null) {
@@ -48,7 +47,6 @@ function CadastroTitulo() {
       setDtPublicacao("");
       setIdioma("");
       navigate(`/listagem-titulos`);
-      // setIdCoordenador(0);
     } else {
       setId(dados.id);
       setTitulo(dados.titulo);
@@ -62,7 +60,6 @@ function CadastroTitulo() {
       setDtPublicacao(dados.dtPublicacao);
       setIdioma(dados.idioma);
       navigate(`/listagem-titulos`);
-      // setIdCoordenador(dados.idCoordenador);
     }
   }
 
@@ -79,9 +76,7 @@ function CadastroTitulo() {
       editora,
       dtPublicacao,
       idioma,
-      // idCoordenador,
     };
-    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
@@ -134,16 +129,7 @@ function CadastroTitulo() {
       setDtPublicacao(response.data.dtPublicacao);
       setIdioma(response.data.idioma);
     });
-    // setIdCoordenador(dados.idCoordenador);
   }
-
-  // const [dadosProfessores, setDadosProfessores] = React.useState(null);
-
-  // useEffect(() => {
-  //   axios.get(`${BASE_URL}/titulo`).then((response) => {
-  //     setDadosProfessores(response.data);
-  //   });
-  // }, []);
 
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
@@ -152,7 +138,6 @@ function CadastroTitulo() {
   }, [id]);
 
   if (!dados) return null;
-  // if (!dadosProfessores) return null;
 
   return (
     <div className="new-container">
