@@ -30,9 +30,9 @@ function CadastroTitulo() {
   const [editora, setEditora] = useState("");
   const [dtPublicacao, setDtPublicacao] = useState("");
   const [idioma, setIdioma] = useState("");
-  // const [idCoordenador, setIdCoordenador] = useState(0);
-
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
+  // const [idCoordenador, setIdCoordenador] = useState(0);
 
   function inicializar() {
     if (idParam == null) {
@@ -47,6 +47,7 @@ function CadastroTitulo() {
       setEditora("");
       setDtPublicacao("");
       setIdioma("");
+      navigate(`/listagem-titulos`);
       // setIdCoordenador(0);
     } else {
       setId(dados.id);
@@ -60,6 +61,7 @@ function CadastroTitulo() {
       setEditora(dados.editora);
       setDtPublicacao(dados.dtPublicacao);
       setIdioma(dados.idioma);
+      navigate(`/listagem-titulos`);
       // setIdCoordenador(dados.idCoordenador);
     }
   }
@@ -79,11 +81,14 @@ function CadastroTitulo() {
       idioma,
       // idCoordenador,
     };
-    data = JSON.stringify(data);
+    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} cadastrado com sucesso!`);
@@ -95,7 +100,10 @@ function CadastroTitulo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} alterado com sucesso!`);
@@ -108,7 +116,11 @@ function CadastroTitulo() {
   }
 
   async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -134,6 +146,8 @@ function CadastroTitulo() {
   // }, []);
 
   useEffect(() => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
     buscar(); // eslint-disable-next-line
   }, [id]);
 
