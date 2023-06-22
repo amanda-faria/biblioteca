@@ -154,7 +154,7 @@ function CadastroFuncionario() {
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
-    buscar(jwt.token); // eslint-disable-next-line
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;

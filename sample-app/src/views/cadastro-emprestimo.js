@@ -24,8 +24,8 @@ function CadastroEmprestimo() {
   // const [senha, setSenha] = useState('');
   // const [senhaRepeticao, setSenhaRepeticao] = useState('');
   // const [admin, setAdmin] = useState(false);
-
   const [dados, setDados] = useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -50,11 +50,14 @@ function CadastroEmprestimo() {
       id,
       numeroTombo /*login, cpf, senha, senhaRepeticao, admin */,
     };
-    data = JSON.stringify(data);
+    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} cadastrado com sucesso!`);
@@ -66,7 +69,10 @@ function CadastroEmprestimo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} alterado com sucesso!`);
@@ -78,20 +84,26 @@ function CadastroEmprestimo() {
     }
   }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  async function buscar(thisToken) {
+    const headers = {
+      Authorization: `Bearer ${thisToken}`,
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setNumeroTombo(response.data.numeroTombo);
+      // setCpf(dados.cpf);
+      // setSenha('');
+      // setSenhaRepeticao('');
+      // setAdmin(dados.admin);
     });
-    setId(dados.id);
-    setNumeroTombo(dados.numeroTombo);
-    // setCpf(dados.cpf);
-    // setSenha('');
-    // setSenhaRepeticao('');
-    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
-    buscar();
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;
