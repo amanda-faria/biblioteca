@@ -28,15 +28,21 @@ function ListagemFuncionarios() {
   const [dados, setDados] = React.useState(null);
   const [dadosFiltrados, setDadosFiltrados] = React.useState([]);
   const [filtroBusca, setFiltroBusca] = React.useState("");
-  const [token, setToken] = React.useState("");
+  const jwt = JSON.parse(localStorage.getItem("token"));
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
-    console.log(url);
+    const thisToken = jwt.token;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${thisToken}`,
+    };
+    console.log(headers);
     await axios
-      .delete(url, data, {
-        headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}`},
+      .delete(url, {
+        headers,
+        data,
       })
       .then(function (response) {
         mensagemSucesso(`Funcionário(a) excluído com sucesso!`);
@@ -52,13 +58,11 @@ function ListagemFuncionarios() {
   }
 
   React.useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
     const headers = {
-      'Authorization': `Bearer ${jwt.token}`
+      Authorization: `Bearer ${jwt.token}`,
     };
 
-    axios.get(baseURL, {headers}).then((response) => {
+    axios.get(baseURL, { headers }).then((response) => {
       setDados(response.data);
       setDadosFiltrados(response.data);
     });
