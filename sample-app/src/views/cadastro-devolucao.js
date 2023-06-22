@@ -21,32 +21,15 @@ function CadastroDevolucao() {
   const [id, setId] = useState("");
   const [numTombo, setNumTombo] = useState("");
 
-  // const [login, setLogin] = useState('');
-  // const [cpf, setCpf] = useState('');
-  // const [senha, setSenha] = useState('');
-  // const [senhaRepeticao, setSenhaRepeticao] = useState('');
-  // const [admin, setAdmin] = useState(false);
-
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId("");
       setNumTombo("");
-      // setLogin('');
-      // setCpf('');
-      // setSenha('');
-      // setSenhaRepeticao('');
-      // setAdmin(false);
     } else {
       setId(dados.id);
       setNumTombo(dados.setNumTombo);
-
-      // setLogin(dados.login);
-      // setCpf(dados.cpf);
-      // setSenha('');
-      // setSenhaRepeticao('');
-      // setAdmin(dados.admin);
     }
   }
 
@@ -86,11 +69,6 @@ function CadastroDevolucao() {
     });
     setId(dados.id);
     setNumTombo(dados.numTombo);
-    // setLogin(dados.login);
-    // setCpf(dados.cpf);
-    // setSenha('');
-    // setSenhaRepeticao('');
-    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
@@ -125,48 +103,6 @@ function CadastroDevolucao() {
                   onChange={(e) => setNumTombo(e.target.value)}
                 />
               </FormGroup>
-              {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputCpf'
-                  value={cpf}
-                  className='form-control'
-                  name='cpf'
-                  onChange={(e) => setCpf(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup label='Senha: *' htmlFor='inputSenha'>
-                <input
-                  type='password'
-                  id='inputSenha'
-                  value={senha}
-                  className='form-control'
-                  name='senha'
-                  onChange={(e) => setSenha(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup label='Repita a Senha: *' htmlFor='inputRepitaSenha'>
-                <input
-                  type='password'
-                  id='inputRepitaSenha'
-                  value={senhaRepeticao}
-                  className='form-control'
-                  name='senhaRepeticao'
-                  onChange={(e) => setSenhaRepeticao(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  id='checkAdmin'
-                  checked={admin}
-                  name='admin'
-                  onChange={(e) => setAdmin(e.target.checked)}
-                />
-                Administrador
-              </FormGroup> */}
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}

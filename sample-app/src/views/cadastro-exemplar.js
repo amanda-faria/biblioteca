@@ -24,7 +24,6 @@ function CadastroExemplar() {
   const [tipoAquisicao, setTipoAquisicao] = useState("");
   const [valor, setValor] = useState("");
   const [token, setToken] = useState("");
-  // const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
 
@@ -36,7 +35,6 @@ function CadastroExemplar() {
       setTipoAquisicao("");
       setValor("");
       navigate(`/listagem-exemplares`);
-      // setAdmin(false);
     } else {
       setId(dados.idExemplar);
       setNumTombo(dados.numTombo);
@@ -44,12 +42,11 @@ function CadastroExemplar() {
       setTipoAquisicao(dados.tipoAquisicao);
       setValor(dados.valor);
       navigate(`/listagem-exemplares`);
-      // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor};
+    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor };
     //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -102,7 +99,7 @@ function CadastroExemplar() {
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
-    buscar(jwt.token); // eslint-disable-next-line
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;
@@ -160,17 +157,6 @@ function CadastroExemplar() {
                   onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
-              {/* <FormGroup>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  id='checkAdmin'
-                  checked={admin}
-                  name='admin'
-                  onChange={(e) => setAdmin(e.target.checked)}
-                />
-                Administrador
-              </FormGroup> */}
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}

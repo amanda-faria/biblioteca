@@ -18,24 +18,24 @@ function CadastroDocumento() {
 
   const baseURL = `${BASE_URL}/documentos`;
 
-  const [id, setId] = useState('');
-  const [tipoDocumento, setTipoDocumento] = useState('');
-  const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState('');
-  const [valorMulta, setValorMulta] = useState('');
-  const [permiteRenovar, setPermiteRenovar] = useState('');
-  const [quantMaximaUnidade, setQuantMaximaUnidade] = useState('');
-  const [permiteReserva, setPermiteReserva] = useState('');
+  const [id, setId] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState("");
+  const [valorMulta, setValorMulta] = useState("");
+  const [permiteRenovar, setPermiteRenovar] = useState("");
+  const [quantMaximaUnidade, setQuantMaximaUnidade] = useState("");
+  const [permiteReserva, setPermiteReserva] = useState("");
   const [dados, setDados] = React.useState([]);
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
-      setTipoDocumento('');
-      setPrazoEntregaQuantDias('');
-      setValorMulta('');
-      setPermiteRenovar('');
-      setQuantMaximaUnidade('');
-      setPermiteReserva('');
+      setId("");
+      setTipoDocumento("");
+      setPrazoEntregaQuantDias("");
+      setValorMulta("");
+      setPermiteRenovar("");
+      setQuantMaximaUnidade("");
+      setPermiteReserva("");
     } else {
       setId(dados.id);
       setTipoDocumento(dados.tipoDocumento);
@@ -49,8 +49,13 @@ function CadastroDocumento() {
 
   async function salvar() {
     let data = {
-      id, tipoDocumento, prazoEntregaQuantDias, valorMulta, permiteRenovar, quantMaximaUnidade,
-      permiteReserva
+      id,
+      tipoDocumento,
+      prazoEntregaQuantDias,
+      valorMulta,
+      permiteRenovar,
+      quantMaximaUnidade,
+      permiteReserva,
     };
     if (idParam == null) {
       await axios
@@ -94,20 +99,11 @@ function CadastroDocumento() {
     setPermiteReserva(dados.permiteReserva);
   }
 
-  // const [dadosCursos, setDadosCursos] = React.useState(null);
-
-  // useEffect(() => {
-  //   axios.get(`${BASE_URL}/cursos`).then((response) => {
-  //     setDadosCursos(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    buscar();
   }, []);
 
   if (!dados) return null;
-  // if (!dadosCursos) return null;
 
   return (
     <div className="new-container">

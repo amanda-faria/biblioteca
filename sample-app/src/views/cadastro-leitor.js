@@ -150,14 +150,6 @@ function CadastroLeitor() {
     });
   }
 
-  // const [dadosCursos, setDadosCursos] = React.useState(null);
-
-  // useEffect(() => {
-  //   axios.get(`${BASE_URL}/cursos`).then((response) => {
-  //     setDadosCursos(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
@@ -165,7 +157,6 @@ function CadastroLeitor() {
   }, [id]);
 
   if (!dados) return null;
-  // if (!dadosCursos) return null;
 
   return (
     <div className="new-container">

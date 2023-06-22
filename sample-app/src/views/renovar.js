@@ -19,7 +19,7 @@ function Renovar() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState("");
-  const [numeroTombo, setNumeroTombo] = useState('');
+  const [numeroTombo, setNumeroTombo] = useState("");
   // const [login, setLogin] = useState('');
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
@@ -31,7 +31,7 @@ function Renovar() {
   function inicializar() {
     if (idParam == null) {
       setId("");
-      setNumeroTombo('');
+      setNumeroTombo("");
       // setLogin('');
       // setCpf('');
       // setSenha('');
@@ -49,7 +49,10 @@ function Renovar() {
   }
 
   async function salvar() {
-    let data = { id, numeroTombo /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
+    let data = {
+      id,
+      numeroTombo /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/,
+    };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -91,7 +94,7 @@ function Renovar() {
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    buscar();
   }, [id]);
 
   if (!dados) return null;
