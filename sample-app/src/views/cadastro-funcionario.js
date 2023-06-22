@@ -53,7 +53,7 @@ function CadastroFuncionario() {
       setEmail("");
       setLogin("");
       setSenha("");
-      navigate('/listagem-funcionarios')
+      navigate("/listagem-funcionarios");
     } else {
       setId(dados.id);
       setNome(dados.nome);
@@ -98,7 +98,7 @@ function CadastroFuncionario() {
         .post(baseURL, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -113,7 +113,7 @@ function CadastroFuncionario() {
         .put(`${baseURL}/${idParam}`, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -128,10 +128,10 @@ function CadastroFuncionario() {
 
   async function buscar() {
     const headers = {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
-    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -152,9 +152,9 @@ function CadastroFuncionario() {
   }
 
   useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar();
   }, [id]);
 
   if (!dados) return null;

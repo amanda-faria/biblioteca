@@ -95,9 +95,9 @@ function CadastroLeitor() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -110,10 +110,10 @@ function CadastroLeitor() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
-        },
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Leitor(a) ${nome} alterado com sucesso!`);
@@ -127,10 +127,10 @@ function CadastroLeitor() {
 
   async function buscar() {
     const headers = {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
-    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -159,9 +159,9 @@ function CadastroLeitor() {
   // }, []);
 
   useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar();
   }, [id]);
 
   if (!dados) return null;

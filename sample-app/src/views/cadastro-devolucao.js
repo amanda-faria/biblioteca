@@ -94,7 +94,7 @@ function CadastroDevolucao() {
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    buscar();
   }, [id]);
 
   if (!dados) return null;

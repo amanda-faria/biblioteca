@@ -49,35 +49,35 @@ function ConsultaLeitor() {
     }
   }
 
-//   async function salvar() {
-//     let data = { id /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
-//     data = JSON.stringify(data);
-//     if (idParam == null) {
-//       await axios
-//         .post(baseURL, data, {
-//           headers: { "Content-Type": "application/json" },
-//         })
-//         .then(function (response) {
-//           mensagemSucesso(`Renovar ${id} cadastrado com sucesso!`);
-//           navigate(`/listagem-titulos`);
-//         })
-//         .catch(function (error) {
-//           mensagemErro(error.response.data);
-//         });
-//     } else {
-//       await axios
-//         .put(`${baseURL}/${idParam}`, data, {
-//           headers: { "Content-Type": "application/json" },
-//         })
-//         .then(function (response) {
-//           mensagemSucesso(`Renovar ${id} alterado com sucesso!`);
-//           navigate(`/listagem-titulos`);
-//         })
-//         .catch(function (error) {
-//           mensagemErro(error.response.data);
-//         });
-//     }
-//   }
+  //   async function salvar() {
+  //     let data = { id /*idTitulo ,login, cpf, senha, senhaRepeticao, admin*/ };
+  //     data = JSON.stringify(data);
+  //     if (idParam == null) {
+  //       await axios
+  //         .post(baseURL, data, {
+  //           headers: { "Content-Type": "application/json" },
+  //         })
+  //         .then(function (response) {
+  //           mensagemSucesso(`Renovar ${id} cadastrado com sucesso!`);
+  //           navigate(`/listagem-titulos`);
+  //         })
+  //         .catch(function (error) {
+  //           mensagemErro(error.response.data);
+  //         });
+  //     } else {
+  //       await axios
+  //         .put(`${baseURL}/${idParam}`, data, {
+  //           headers: { "Content-Type": "application/json" },
+  //         })
+  //         .then(function (response) {
+  //           mensagemSucesso(`Renovar ${id} alterado com sucesso!`);
+  //           navigate(`/listagem-titulos`);
+  //         })
+  //         .catch(function (error) {
+  //           mensagemErro(error.response.data);
+  //         });
+  //     }
+  //   }
 
   async function buscar() {
     await axios.get(`${baseURL}/${idParam}`).then((response) => {
@@ -91,7 +91,7 @@ function ConsultaLeitor() {
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    buscar();
   }, [id]);
 
   if (!dados) return null;

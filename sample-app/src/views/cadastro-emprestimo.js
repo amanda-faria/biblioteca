@@ -19,7 +19,7 @@ function CadastroEmprestimo() {
   const baseURL = `${BASE_URL}/usuarios`;
 
   const [id, setId] = useState("");
-  const [numeroTombo, setNumeroTombo] = useState('');
+  const [numeroTombo, setNumeroTombo] = useState("");
   // const [cpf, setCpf] = useState('');
   // const [senha, setSenha] = useState('');
   // const [senhaRepeticao, setSenhaRepeticao] = useState('');
@@ -30,7 +30,7 @@ function CadastroEmprestimo() {
   function inicializar() {
     if (idParam == null) {
       setId("");
-      setNumeroTombo('');
+      setNumeroTombo("");
       // setCpf('');
       // setSenha('');
       // setSenhaRepeticao('');
@@ -46,7 +46,10 @@ function CadastroEmprestimo() {
   }
 
   async function salvar() {
-    let data = { id, numeroTombo /*login, cpf, senha, senhaRepeticao, admin */ };
+    let data = {
+      id,
+      numeroTombo /*login, cpf, senha, senhaRepeticao, admin */,
+    };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -88,7 +91,7 @@ function CadastroEmprestimo() {
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    buscar();
   }, [id]);
 
   if (!dados) return null;
