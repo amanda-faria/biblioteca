@@ -34,6 +34,7 @@ function CadastroLeitor() {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -94,7 +95,10 @@ function CadastroLeitor() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Leitor(a) ${nome} cadastrado com sucesso!`);
@@ -106,7 +110,10 @@ function CadastroLeitor() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+        },
         })
         .then(function (response) {
           mensagemSucesso(`Leitor(a) ${nome} alterado com sucesso!`);
@@ -119,7 +126,11 @@ function CadastroLeitor() {
   }
 
   async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -148,6 +159,8 @@ function CadastroLeitor() {
   // }, []);
 
   useEffect(() => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
     buscar(); // eslint-disable-next-line
   }, [id]);
 

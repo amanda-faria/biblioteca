@@ -35,14 +35,14 @@ function ListagemLeitores() {
   const [dados, setDados] = React.useState(null);
   const [dadosFiltrados, setDadosFiltrados] = React.useState([]);
   const [filtroBusca, setFiltroBusca] = React.useState("");
+  const [token, setToken] = React.useState("");
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
-    console.log(url);
     await axios
       .delete(url, data, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
       })
       .then(function (response) {
         mensagemSucesso(`Leitor excluído com sucesso!`);
@@ -53,12 +53,19 @@ function ListagemLeitores() {
         );
       })
       .catch(function (error) {
+        console.log(error);
         mensagemErro(`Erro ao excluir o leitor`);
       });
   }
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
+    const headers = {
+      'Authorization': `Bearer ${jwt.token}`
+    };
+
+    axios.get(baseURL, {headers}).then((response) => {
       setDados(response.data);
       setDadosFiltrados(response.data);
     });

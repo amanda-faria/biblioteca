@@ -23,6 +23,7 @@ function CadastroExemplar() {
   const [dataAquisicao, setDataAquisicao] = useState("");
   const [tipoAquisicao, setTipoAquisicao] = useState("");
   const [valor, setValor] = useState("");
+  const [token, setToken] = useState("");
   // const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
@@ -34,6 +35,7 @@ function CadastroExemplar() {
       setDataAquisicao("");
       setTipoAquisicao("");
       setValor("");
+      navigate(`/listagem-exemplares`);
       // setAdmin(false);
     } else {
       setId(dados.idExemplar);
@@ -41,17 +43,21 @@ function CadastroExemplar() {
       setDataAquisicao(dados.dataAquisicao);
       setTipoAquisicao("");
       setValor("");
+      navigate(`/listagem-exemplares`);
       // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
     let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor /* admin*/ };
-    data = JSON.stringify(data);
+    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Exemplar ${numTombo} cadastrado com sucesso!`);
@@ -63,7 +69,10 @@ function CadastroExemplar() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Exemplar ${numTombo} alterado com sucesso!`);
@@ -76,7 +85,11 @@ function CadastroExemplar() {
   }
 
   async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -88,6 +101,8 @@ function CadastroExemplar() {
   }
 
   useEffect(() => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
     buscar(); // eslint-disable-next-line
   }, [id]);
 

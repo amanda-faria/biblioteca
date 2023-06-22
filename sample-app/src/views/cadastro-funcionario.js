@@ -33,6 +33,7 @@ function CadastroFuncionario() {
   const [email, setEmail] = useState("");
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
+  const [token, setToken] = useState("");
 
   const [dados, setDados] = React.useState([]);
 
@@ -53,6 +54,7 @@ function CadastroFuncionario() {
       setEmail("");
       setLogin("");
       setSenha("");
+      navigate('/listagem-funcionarios')
     } else {
       setId(dados.id);
       setNome(dados.nome);
@@ -69,6 +71,7 @@ function CadastroFuncionario() {
       setEmail(dados.email);
       setLogin(dados.login);
       setSenha(dados.senha);
+      navigate(`/listagem-funcionarios`);
     }
   }
 
@@ -90,11 +93,14 @@ function CadastroFuncionario() {
       login,
       senha,
     };
-    data = JSON.stringify(data);
+    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Funcionário(a) ${nome} cadastrado com sucesso!`);
@@ -106,7 +112,10 @@ function CadastroFuncionario() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Funcionário(a) ${nome} alterado com sucesso!`);
@@ -119,6 +128,10 @@ function CadastroFuncionario() {
   }
 
   async function buscar() {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
     await axios.get(`${baseURL}/${idParam}`).then((response) => {
       setDados(response.data);
     });
@@ -140,6 +153,8 @@ function CadastroFuncionario() {
   }
 
   useEffect(() => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
     buscar(); // eslint-disable-next-line
   }, [id]);
 
@@ -147,7 +162,7 @@ function CadastroFuncionario() {
 
   return (
     <ContentContainer title="Cadastro de Funcionário" hasOverflowY>
-      <div className="row"  style={{ paddingBottom: "4em" }}>
+      <div className="row" style={{ paddingBottom: "4em" }}>
         <div className="col-lg-12">
           <div className="bs-component">
             <FormGroup label="ID: " htmlFor="inputId">
