@@ -24,8 +24,8 @@ function ListagemLeitores() {
     navigate(`/cadastro-leitor`);
   };
 
-  const consultar = () => {
-    navigate(`/situacao-leitor`);
+  const consultar = (id) => {
+    navigate(`/situacao-leitor/${id}`);
   };
 
   const editar = (id) => {
@@ -53,7 +53,7 @@ function ListagemLeitores() {
         );
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
         mensagemErro(`Erro ao excluir o leitor`);
       });
   }

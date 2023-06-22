@@ -20,7 +20,7 @@ import CadastroLeitor from "./views/cadastro-leitor";
 import CadastroUsuario from "./views/cadastro-usuario";
 import CadastroDocumento from "./views/cadastro-documento";
 
-import SituacaoLeitor from "./views/sitacao-leitor";
+import SituacaoLeitor from "./views/situacao-leitor";
 import ConsultaLeitor from "./views/consulta-leitor";
 import { Grid, Box } from "@mui/material";
 import Sidebar from "./components/sidebar.js";
@@ -38,6 +38,7 @@ function Rotas(props) {
       <Route path="/reservar/:idParam" element={<Reservar />} />
       <Route path="/renovar" element={<Renovar />} />
       <Route path="/situacao-leitor" element={<SituacaoLeitor />} />
+      <Route path='/situacao-leitor/:idParam?' element={<SituacaoLeitor />} />
       <Route path="/consulta-leitor" element={<ConsultaLeitor />} />
 
       <Route path='/cadastro-usuario/:idParam?' element={<CadastroUsuario />} />

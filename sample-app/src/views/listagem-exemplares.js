@@ -92,7 +92,7 @@ function ListagemExemplares() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.numTombo}</td>
+                      <td>{dado.numeroTombo}</td>
                       <td>{dado.dtAquisicao}</td>
                       <td>{dado.tipoAquisicao}</td>
                       <td>

@@ -26,8 +26,8 @@ function CadastroUsuario() {
   const [senha, setSenha] = useState('');
   const [senhaRepeticao, setSenhaRepeticao] = useState('');
   const [admin, setAdmin] = useState(false);
-
   const [dados, setDados] = useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -37,6 +37,7 @@ function CadastroUsuario() {
       setSenha('');
       setSenhaRepeticao('');
       setAdmin(false);
+      navigate(`/listagem-usuarios`);
     } else {
       setId(dados.id);
       setLogin(dados.login);
@@ -44,6 +45,7 @@ function CadastroUsuario() {
       setSenha('');
       setSenhaRepeticao('');
       setAdmin(dados.admin);
+      navigate(`/listagem-usuarios`);
     }
   }
 
@@ -53,7 +55,10 @@ function CadastroUsuario() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
@@ -65,7 +70,10 @@ function CadastroUsuario() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
@@ -78,7 +86,11 @@ function CadastroUsuario() {
   }
 
   async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
@@ -90,7 +102,9 @@ function CadastroUsuario() {
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
+    buscar();
   }, [id]);
 
   if (!dados) return null;

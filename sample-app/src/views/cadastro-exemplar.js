@@ -41,15 +41,15 @@ function CadastroExemplar() {
       setId(dados.idExemplar);
       setNumTombo(dados.numTombo);
       setDataAquisicao(dados.dataAquisicao);
-      setTipoAquisicao("");
-      setValor("");
+      setTipoAquisicao(dados.tipoAquisicao);
+      setValor(dados.valor);
       navigate(`/listagem-exemplares`);
       // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor /* admin*/ };
+    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor};
     //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -91,11 +91,11 @@ function CadastroExemplar() {
 
     await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
-      setId(dados.id);
-      setNumTombo(dados.numTombo);
-      setDataAquisicao(dados.dataAquisicao);
-      setTipoAquisicao("");
-      setValor("");
+      setId(response.data.id);
+      setNumTombo(response.data.numTombo);
+      setDataAquisicao(response.data.dataAquisicao);
+      setTipoAquisicao(response.data.tipoAquisicao);
+      setValor(response.data.valor);
     });
   }
 

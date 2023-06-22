@@ -122,17 +122,17 @@ function CadastroTitulo() {
 
     await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
-      setId(dados.id);
-      setTitulo(dados.titulo);
-      setSubtitulo(dados.subtitulo);
-      setEdicao(dados.edicao);
-      setArea(dados.area);
-      setTotalPaginas(dados.totalPaginas);
-      setNotaSerie(dados.notaSerie);
-      setCidadePublicacao(dados.cidadePublicacao);
-      setEditora(dados.editora);
-      setDtPublicacao(dados.dtPublicacao);
-      setIdioma(dados.idioma);
+      setId(response.data.id);
+      setTitulo(response.data.titulo);
+      setSubtitulo(response.data.subtitulo);
+      setEdicao(response.data.edicao);
+      setArea(response.data.area);
+      setTotalPaginas(response.data.totalPaginas);
+      setNotaSerie(response.data.notaSerie);
+      setCidadePublicacao(response.data.cidadePublicacao);
+      setEditora(response.data.editora);
+      setDtPublicacao(response.data.dtPublicacao);
+      setIdioma(response.data.idioma);
     });
     // setIdCoordenador(dados.idCoordenador);
   }
@@ -174,7 +174,7 @@ function CadastroTitulo() {
                 <input
                   type="text"
                   id="inputSubtitulo"
-                  value={titulo}
+                  value={subtitulo}
                   className="form-control"
                   name="subtitulo"
                   onChange={(e) => setSubtitulo(e.target.value)}
