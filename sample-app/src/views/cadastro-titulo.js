@@ -115,25 +115,25 @@ function CadastroTitulo() {
     }
   }
 
-  async function buscar() {
+  async function buscar(thisToken) {
     const headers = {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${thisToken}`,
     };
 
     await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(dados.id);
+      setTitulo(dados.titulo);
+      setSubtitulo(dados.subtitulo);
+      setEdicao(dados.edicao);
+      setArea(dados.area);
+      setTotalPaginas(dados.totalPaginas);
+      setNotaSerie(dados.notaSerie);
+      setCidadePublicacao(dados.cidadePublicacao);
+      setEditora(dados.editora);
+      setDtPublicacao(dados.dtPublicacao);
+      setIdioma(dados.idioma);
     });
-    setId(dados.id);
-    setTitulo(dados.titulo);
-    setSubtitulo(dados.subtitulo);
-    setEdicao(dados.edicao);
-    setArea(dados.area);
-    setTotalPaginas(dados.totalPaginas);
-    setNotaSerie(dados.notaSerie);
-    setCidadePublicacao(dados.cidadePublicacao);
-    setEditora(dados.editora);
-    setDtPublicacao(dados.dtPublicacao);
-    setIdioma(dados.idioma);
     // setIdCoordenador(dados.idCoordenador);
   }
 
@@ -148,7 +148,7 @@ function CadastroTitulo() {
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
-    buscar();
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;

@@ -126,35 +126,35 @@ function CadastroFuncionario() {
     }
   }
 
-  async function buscar() {
+  async function buscar(thisToken) {
     const headers = {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${thisToken}`,
     };
 
     await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setNome(response.data.nome);
+      setSexo(response.data.sexo);
+      setDtNascimento(response.data.dtNascimento);
+      setLogradouro(response.data.logradouro);
+      setComplemento(response.data.complemento);
+      setNumero(response.data.numero);
+      setBairro(response.data.bairro);
+      setCidade(response.data.cidade);
+      setCep(response.data.cep);
+      setUf(response.data.uf);
+      setTelefone(response.data.telefone);
+      setEmail(response.data.email);
+      setLogin(response.data.login);
+      setSenha(response.data.senha);
     });
-    setId(dados.id);
-    setNome(dados.nome);
-    setSexo(dados.sexo);
-    setDtNascimento(dados.dtNascimento);
-    setLogradouro(dados.logradouro);
-    setComplemento(dados.complemento);
-    setNumero(dados.numero);
-    setBairro(dados.bairro);
-    setCidade(dados.cidade);
-    setCep(dados.cep);
-    setUf(dados.uf);
-    setTelefone(dados.telefone);
-    setEmail(dados.email);
-    setLogin(dados.login);
-    setSenha(dados.senha);
   }
 
   useEffect(() => {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
-    buscar();
+    buscar(jwt.token); // eslint-disable-next-line
   }, [id]);
 
   if (!dados) return null;

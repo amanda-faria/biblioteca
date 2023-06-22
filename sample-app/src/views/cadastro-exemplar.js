@@ -56,7 +56,7 @@ function CadastroExemplar() {
         .post(baseURL, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -71,7 +71,7 @@ function CadastroExemplar() {
         .put(`${baseURL}/${idParam}`, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -84,26 +84,25 @@ function CadastroExemplar() {
     }
   }
 
-  async function buscar() {
+  async function buscar(thisToken) {
     const headers = {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${thisToken}`,
     };
 
-    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(dados.id);
+      setNumTombo(dados.numTombo);
+      setDataAquisicao(dados.dataAquisicao);
+      setTipoAquisicao("");
+      setValor("");
     });
-    setId(dados.id);
-    setNumTombo(dados.numTombo);
-    setDataAquisicao(dados.dataAquisicao);
-    setTipoAquisicao("");
-    setValor("");
-    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token); // eslint-disable-next-line
   }, [id]);
 
   if (!dados) return null;
