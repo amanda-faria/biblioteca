@@ -28,6 +28,7 @@ function ListagemExemplares() {
   };
 
   const [dados, setDados] = React.useState(null);
+  const [token, setToken] = React.useState("");
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
@@ -35,7 +36,10 @@ function ListagemExemplares() {
     console.log(url);
     await axios
       .delete(url, data, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(function (response) {
         mensagemSucesso(`Exemplar excluído com sucesso!`);
@@ -51,7 +55,12 @@ function ListagemExemplares() {
   }
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    const headers = {
+      Authorization: `Bearer ${jwt.token}`,
+    };
+    axios.get(baseURL, { headers }).then((response) => {
       setDados(response.data);
     });
   }, []);
