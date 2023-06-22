@@ -33,9 +33,8 @@ function CadastroFuncionario() {
   const [email, setEmail] = useState("");
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
-  const [token, setToken] = useState("");
-
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -132,7 +131,7 @@ function CadastroFuncionario() {
       'Authorization': `Bearer ${token}`
     };
 
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
