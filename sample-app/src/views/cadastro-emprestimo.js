@@ -16,11 +16,10 @@ function CadastroEmprestimo() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/usuarios`;
+  const baseURL = `${BASE_URL}/emprestimos`;
 
   const [id, setId] = useState("");
   const [numeroTombo, setNumeroTombo] = useState("");
-
   const [dados, setDados] = useState([]);
   const [token, setToken] = useState("");
 
@@ -28,9 +27,11 @@ function CadastroEmprestimo() {
     if (idParam == null) {
       setId("");
       setNumeroTombo("");
+      navigate("/listagem-emprestimos");
     } else {
       setId(dados.id);
       setNumeroTombo(dados.numeroTombo);
+      navigate("/listagem-emprestimos");
     }
   }
 
@@ -89,7 +90,7 @@ function CadastroEmprestimo() {
     const jwt = JSON.parse(localStorage.getItem("token"));
     setToken((prev) => jwt.token);
     buscar(jwt.token);
-  }, [id]);
+  }, []);
 
   if (!dados) return null;
 

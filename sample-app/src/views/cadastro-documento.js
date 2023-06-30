@@ -26,6 +26,7 @@ function CadastroDocumento() {
   const [quantMaximaUnidade, setQuantMaximaUnidade] = useState("");
   const [permiteReserva, setPermiteReserva] = useState("");
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -36,6 +37,7 @@ function CadastroDocumento() {
       setPermiteRenovar("");
       setQuantMaximaUnidade("");
       setPermiteReserva("");
+      navigate("/listagem-documentos");
     } else {
       setId(dados.id);
       setTipoDocumento(dados.tipoDocumento);
@@ -44,6 +46,7 @@ function CadastroDocumento() {
       setPermiteRenovar(dados.permiteRenovar);
       setQuantMaximaUnidade(dados.quantMaximaUnidade);
       setPermiteReserva(dados.permiteReserva);
+      navigate("/listagem-documentos");
     }
   }
 
@@ -60,7 +63,10 @@ function CadastroDocumento() {
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(
@@ -74,7 +80,10 @@ function CadastroDocumento() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Documento ${tipoDocumento} alterado com sucesso!`);
@@ -86,21 +95,27 @@ function CadastroDocumento() {
     }
   }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  async function buscar(thisToken) {
+    const headers = {
+      Authorization: `Bearer ${thisToken}`,
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setTipoDocumento(response.data.tipoDocumento);
+      setPrazoEntregaQuantDias(response.data.prazoEntregaQuantDias);
+      setValorMulta(response.data.valorMulta);
+      setPermiteRenovar(response.data.permiteRenovar);
+      setQuantMaximaUnidade(response.data.quantMaximaUnidade);
+      setPermiteReserva(response.data.permiteReserva);
     });
-    setId(dados.id);
-    setTipoDocumento(dados.tipoDocumento);
-    setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
-    setValorMulta(dados.valorMulta);
-    setPermiteRenovar(dados.permiteRenovar);
-    setQuantMaximaUnidade(dados.quantMaximaUnidade);
-    setPermiteReserva(dados.permiteReserva);
   }
 
   useEffect(() => {
-    buscar();
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, []);
 
   if (!dados) return null;

@@ -35,7 +35,8 @@ function ListagemDocumentos() {
     let url = `${baseURL}/${id}`;
     console.log(url);
     await axios
-      .delete(url, data, {
+      .delete(url, {
+        data,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
