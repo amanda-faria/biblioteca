@@ -31,8 +31,6 @@ function CadastroLeitor() {
   const [uf, setUf] = useState("");
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
-  const [login, setLogin] = useState("");
-  const [senha, setSenha] = useState("");
   const [dados, setDados] = React.useState([]);
   const [token, setToken] = useState("");
 
@@ -51,8 +49,6 @@ function CadastroLeitor() {
       setUf("");
       setTelefone("");
       setEmail("");
-      setLogin("");
-      setSenha("");
       navigate(`/listagem-leitores`);
     } else {
       setId(dados.id);
@@ -68,8 +64,6 @@ function CadastroLeitor() {
       setUf(dados.uf);
       setTelefone(dados.telefone);
       setEmail(dados.email);
-      setLogin(dados.login);
-      setSenha(dados.senha);
       navigate(`/listagem-leitores`);
     }
   }
@@ -89,8 +83,6 @@ function CadastroLeitor() {
       uf,
       telefone,
       email,
-      login,
-      senha,
     };
     if (idParam == null) {
       await axios
@@ -145,8 +137,6 @@ function CadastroLeitor() {
       setUf(response.data.uf);
       setTelefone(response.data.telefone);
       setEmail(response.data.email);
-      setLogin(response.data.login);
-      setSenha(response.data.senha);
     });
   }
 
@@ -167,7 +157,7 @@ function CadastroLeitor() {
               <FormGroup label="Nome: *" htmlFor="inputNome">
                 <input
                   type="text"
-                  maxLength="11"
+                  maxLength="100"
                   id="inputNome"
                   value={nome}
                   className="form-control"
@@ -286,26 +276,6 @@ function CadastroLeitor() {
                   className="form-control"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="Login:" htmlFor="inputLogin">
-                <input
-                  //type=''
-                  id="inputCep"
-                  value={login}
-                  className="form-control"
-                  name="cep"
-                  onChange={(e) => setLogin(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="Senha:" htmlFor="inputSenha">
-                <input
-                  type="password"
-                  id="inputSenha"
-                  value={senha}
-                  className="form-control"
-                  name="senha"
-                  onChange={(e) => setSenha(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
