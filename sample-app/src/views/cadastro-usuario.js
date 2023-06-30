@@ -22,7 +22,6 @@ function CadastroUsuario() {
 
   const [id, setId] = useState("");
   const [login, setLogin] = useState("");
-  const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
   const [senhaRepeticao, setSenhaRepeticao] = useState("");
   const [admin, setAdmin] = useState(false);
@@ -33,7 +32,6 @@ function CadastroUsuario() {
     if (idParam == null) {
       setId("");
       setLogin("");
-      setCpf("");
       setSenha("");
       setSenhaRepeticao("");
       setAdmin(false);
@@ -41,7 +39,6 @@ function CadastroUsuario() {
     } else {
       setId(dados.id);
       setLogin(dados.login);
-      setCpf(dados.cpf);
       setSenha("");
       setSenhaRepeticao("");
       setAdmin(dados.admin);
@@ -50,7 +47,7 @@ function CadastroUsuario() {
   }
 
   async function salvar() {
-    let data = { id, login, cpf, senha, senhaRepeticao, admin };
+    let data = { id, login, senha, senhaRepeticao, admin };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -95,7 +92,6 @@ function CadastroUsuario() {
     });
     setId(dados.id);
     setLogin(dados.login);
-    setCpf(dados.cpf);
     setSenha("");
     setSenhaRepeticao("");
     setAdmin(dados.admin);
@@ -123,17 +119,6 @@ function CadastroUsuario() {
                   className="form-control"
                   name="login"
                   onChange={(e) => setLogin(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="CPF: *" htmlFor="inputCpf">
-                <input
-                  type="text"
-                  maxLength="11"
-                  id="inputCpf"
-                  value={cpf}
-                  className="form-control"
-                  name="cpf"
-                  onChange={(e) => setCpf(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label="Senha: *" htmlFor="inputSenha">
@@ -165,7 +150,7 @@ function CadastroUsuario() {
                   name="admin"
                   onChange={(e) => setAdmin(e.target.checked)}
                 />
-                Administrador
+                {" "}Administrador
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
                 <button

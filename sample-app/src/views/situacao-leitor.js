@@ -14,6 +14,7 @@ import { BASE_URL } from "../config/axios";
 
 const baseURL = `${BASE_URL}/exemplares`;
 
+
 function SituacaoLeitor() {
   const navigate = useNavigate();
 
@@ -92,7 +93,9 @@ function SituacaoLeitor() {
                 <th scope="col">Título</th>
                 <th scope="col">Número de tombo</th>
                 <th scope="col">Dias de atraso</th>
-                <th scope="col">Valor da multa</th>
+                <th scope="col">Valor da multa por dia</th>
+                <th scope="col">Valor total da multa</th>
+
                 {/* <th scope="col">Ações</th> */}
               </tr>
             </thead>
@@ -105,10 +108,12 @@ function SituacaoLeitor() {
                   )
                 : dadosFiltrados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>"O Senhor dos Anéis"</td>
-                      <td>{dado.numTombo}</td>
+                      <td>{"O menino maluquinho"}</td>
+                      <td>{dado.numeroTombo}</td>
                       <td>{dado.id}</td>
-                      <td>{dado.valor}</td>
+                      <td>{"R$ " + dado.valor}</td>
+                      <td>{"R$ " + dado.id * dado.valor}</td>
+
                       {/* <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton

@@ -29,17 +29,22 @@ function ListagemExemplares() {
 
   const [dados, setDados] = React.useState(null);
   const [token, setToken] = React.useState("");
+  const jwt = JSON.parse(localStorage.getItem("token"));
+
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
-    console.log(url);
+    const thisToken = jwt.token;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${thisToken}`,
+    };
+    console.log(headers);
     await axios
-      .delete(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+      .delete(url, {
+        headers,
+        data,
       })
       .then(function (response) {
         mensagemSucesso(`Exemplar excluído com sucesso!`);

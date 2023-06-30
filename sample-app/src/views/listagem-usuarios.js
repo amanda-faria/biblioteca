@@ -31,14 +31,22 @@ function ListagemUsuarios() {
 
   const [dados, setDados] = React.useState(null);
   const [token, setToken] = React.useState("");
+  const jwt = JSON.parse(localStorage.getItem("token"));
+
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
-    console.log(url);
+    const thisToken = jwt.token;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${thisToken}`,
+    };
+    console.log(headers);
     await axios
-      .delete(url, data, {
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      .delete(url, {
+        headers,
+        data,
       })
       .then(function (response) {
         mensagemSucesso(`Usuário excluído com sucesso!`);
@@ -84,7 +92,6 @@ function ListagemUsuarios() {
                 <thead>
                   <tr>
                     <th scope='col'>Login</th>
-                    <th scope='col'>CPF</th>
                     <th scope='col'>Administrador</th>
                     <th scope='col'>Ações</th>
                   </tr>
@@ -93,7 +100,6 @@ function ListagemUsuarios() {
                   {dados.map((dado) => (
                     <tr key={dado.id}>
                       <td>{dado.login}</td>
-                      <td>{dado.cpf}</td>
                       <td>{dado.admin ? 'Sim' : 'Não'}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>

@@ -19,7 +19,7 @@ function CadastroExemplar() {
   const baseURL = `${BASE_URL}/exemplares`;
 
   const [id, setId] = useState("");
-  const [numTombo, setNumTombo] = useState("");
+  const [numeroTombo, setNumeroTombo] = useState("");
   const [dataAquisicao, setDataAquisicao] = useState("");
   const [tipoAquisicao, setTipoAquisicao] = useState("");
   const [valor, setValor] = useState("");
@@ -30,14 +30,14 @@ function CadastroExemplar() {
   function inicializar() {
     if (idParam == null) {
       setId("");
-      setNumTombo("");
+      setNumeroTombo("");
       setDataAquisicao("");
       setTipoAquisicao("");
       setValor("");
       navigate(`/listagem-exemplares`);
     } else {
       setId(dados.idExemplar);
-      setNumTombo(dados.numTombo);
+      setNumeroTombo(dados.numeroTombo);
       setDataAquisicao(dados.dataAquisicao);
       setTipoAquisicao(dados.tipoAquisicao);
       setValor(dados.valor);
@@ -46,7 +46,7 @@ function CadastroExemplar() {
   }
 
   async function salvar() {
-    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor };
+    let data = { id, numeroTombo, dataAquisicao, tipoAquisicao, valor };
     //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -57,7 +57,7 @@ function CadastroExemplar() {
           },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${numTombo} cadastrado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numeroTombo} cadastrado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -72,7 +72,7 @@ function CadastroExemplar() {
           },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${numTombo} alterado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numeroTombo} alterado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -89,7 +89,7 @@ function CadastroExemplar() {
     await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
       setId(response.data.id);
-      setNumTombo(response.data.numTombo);
+      setNumeroTombo(response.data.numeroTombo);
       setDataAquisicao(response.data.dataAquisicao);
       setTipoAquisicao(response.data.tipoAquisicao);
       setValor(response.data.valor);
@@ -114,10 +114,10 @@ function CadastroExemplar() {
                 <input
                   type="text"
                   id="inputNumTombo"
-                  value={numTombo}
+                  value={numeroTombo}
                   className="form-control"
                   name="numTombo"
-                  onChange={(e) => setNumTombo(e.target.value)}
+                  onChange={(e) => setNumeroTombo(e.target.value)}
                 />
               </FormGroup>
               <FormGroup
