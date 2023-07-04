@@ -163,17 +163,6 @@ function CadastroDocumento() {
                   onChange={(e) => setValorMulta(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="checkAdmin"
-                  checked={permiteRenovar}
-                  name="Renovar"
-                  onChange={(e) => setPermiteRenovar(e.target.checked)}
-                />
-                {" "} Permite renovar
-              </FormGroup>
               <FormGroup
                 label="Quantidade máxima de unidades:"
                 htmlFor="inputQuantMaximaUnidade"
@@ -187,6 +176,19 @@ function CadastroDocumento() {
                   onChange={(e) => setQuantMaximaUnidade(e.target.value)}
                 />
               </FormGroup>
+              <br></br>
+              <FormGroup>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="checkAdmin"
+                  checked={permiteRenovar}
+                  name="Renovar"
+                  onChange={(e) => setPermiteRenovar(e.target.checked)}
+                />
+                {" "} Permite renovar
+              </FormGroup>
+              <br></br>
               <FormGroup>
                 <input
                   className="form-check-input"
@@ -198,6 +200,7 @@ function CadastroDocumento() {
                 />
                 {" "} Permite reserva
               </FormGroup>
+              <br></br>
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}
