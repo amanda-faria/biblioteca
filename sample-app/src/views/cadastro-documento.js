@@ -23,7 +23,7 @@ function CadastroDocumento() {
   const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState("");
   const [valorMulta, setValorMulta] = useState("");
   const [permiteRenovar, setPermiteRenovar] = useState("");
-  const [quantMaximaUnidade, setQuantMaximaUnidade] = useState("");
+  const [quantMaximaEmprestimo, setquantMaximaEmprestimo] = useState("");
   const [permiteReserva, setPermiteReserva] = useState("");
   const [dados, setDados] = React.useState([]);
   const [token, setToken] = useState("");
@@ -35,7 +35,7 @@ function CadastroDocumento() {
       setPrazoEntregaQuantDias("");
       setValorMulta("");
       setPermiteRenovar("");
-      setQuantMaximaUnidade("");
+      setquantMaximaEmprestimo("");
       setPermiteReserva("");
       navigate("/listagem-documentos");
     } else {
@@ -44,7 +44,7 @@ function CadastroDocumento() {
       setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
       setValorMulta(dados.valorMulta);
       setPermiteRenovar(dados.permiteRenovar);
-      setQuantMaximaUnidade(dados.quantMaximaUnidade);
+      setquantMaximaEmprestimo(dados.quantMaximaEmprestimo);
       setPermiteReserva(dados.permiteReserva);
       navigate("/listagem-documentos");
     }
@@ -57,7 +57,7 @@ function CadastroDocumento() {
       prazoEntregaQuantDias,
       valorMulta,
       permiteRenovar,
-      quantMaximaUnidade,
+      quantMaximaEmprestimo,
       permiteReserva,
     };
     if (idParam == null) {
@@ -107,7 +107,7 @@ function CadastroDocumento() {
       setPrazoEntregaQuantDias(response.data.prazoEntregaQuantDias);
       setValorMulta(response.data.valorMulta);
       setPermiteRenovar(response.data.permiteRenovar);
-      setQuantMaximaUnidade(response.data.quantMaximaUnidade);
+      setquantMaximaEmprestimo(response.data.quantMaximaEmprestimo);
       setPermiteReserva(response.data.permiteReserva);
     });
   }
@@ -170,10 +170,10 @@ function CadastroDocumento() {
                 <input
                   //type='number'
                   id="inputQuantMaximaUnidade"
-                  value={quantMaximaUnidade}
+                  value={quantMaximaEmprestimo}
                   className="form-control"
                   name="QuantMaximaUnidade"
-                  onChange={(e) => setQuantMaximaUnidade(e.target.value)}
+                  onChange={(e) => setquantMaximaEmprestimo(e.target.value)}
                 />
               </FormGroup>
               <br></br>
