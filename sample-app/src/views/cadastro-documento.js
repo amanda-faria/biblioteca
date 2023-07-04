@@ -163,18 +163,16 @@ function CadastroDocumento() {
                   onChange={(e) => setValorMulta(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup
-                label="Possibilidade de renovação:"
-                htmlFor="inputPermiteRenovar"
-              >
+              <FormGroup>
                 <input
-                  //type='text'
-                  id="inputPermiteRenovar"
-                  value={permiteRenovar}
-                  className="form-control"
-                  name="permiteRenovar"
-                  onChange={(e) => setPermiteRenovar(e.target.value)}
+                  className="form-check-input"
+                  type="checkbox"
+                  id="checkAdmin"
+                  checked={permiteRenovar}
+                  name="Renovar"
+                  onChange={(e) => setPermiteRenovar(e.target.checked)}
                 />
+                {" "} Permite renovar
               </FormGroup>
               <FormGroup
                 label="Quantidade máxima de unidades:"
@@ -189,18 +187,16 @@ function CadastroDocumento() {
                   onChange={(e) => setQuantMaximaUnidade(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup
-                label="Possibilidade de reserva:"
-                htmlFor="inputPermiteReserva"
-              >
+              <FormGroup>
                 <input
-                  //type='text'
-                  id="inputPermiteReserva"
-                  value={permiteReserva}
-                  className="form-control"
-                  name="PermiteReserva"
-                  onChange={(e) => setPermiteReserva(e.target.value)}
+                  className="form-check-input"
+                  type="checkbox"
+                  id="checkAdmin"
+                  checked={permiteReserva}
+                  name="Reserva"
+                  onChange={(e) => setPermiteReserva(e.target.checked)}
                 />
+                {" "} Permite reserva
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
                 <button
