@@ -90,6 +90,7 @@ function ListagemExemplares() {
                   <tr>
                     <th scope="col">Número de Tombo </th>
                     <th scope="col">Tipo de Aquisição </th>
+                    <th scope="col">Valor </th>
                     <th scope="col">Ações</th>
                   </tr>
                 </thead>
@@ -98,6 +99,7 @@ function ListagemExemplares() {
                     <tr key={dado.id}>
                       <td>{dado.numeroTombo}</td>
                       <td>{dado.tipoAquisicao}</td>
+                      <td>{dado.valor}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton

@@ -24,6 +24,8 @@ function CadastroExemplar() {
   const [tipoAquisicao, setTipoAquisicao] = useState("");
   const [valor, setValor] = useState("");
   const [token, setToken] = useState("");
+  const [idTitulo, setIdTitulo] = useState("");
+
 
   const [dados, setDados] = useState([]);
 
@@ -34,6 +36,7 @@ function CadastroExemplar() {
       setDataAquisicao("");
       setTipoAquisicao("");
       setValor("");
+      setIdTitulo("")
       navigate(`/listagem-exemplares`);
     } else {
       setId(dados.idExemplar);
@@ -41,12 +44,13 @@ function CadastroExemplar() {
       setDataAquisicao(dados.dataAquisicao);
       setTipoAquisicao(dados.tipoAquisicao);
       setValor(dados.valor);
+      setIdTitulo(dados.idTitulo)
       navigate(`/listagem-exemplares`);
     }
   }
 
   async function salvar() {
-    let data = { id, numeroTombo, dataAquisicao, tipoAquisicao, valor };
+    let data = { id, numeroTombo, dataAquisicao, tipoAquisicao, valor, idTitulo};
     //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -93,6 +97,7 @@ function CadastroExemplar() {
       setDataAquisicao(response.data.dataAquisicao);
       setTipoAquisicao(response.data.tipoAquisicao);
       setValor(response.data.valor);
+      setIdTitulo(response.dado.idTitulo);
     });
   }
 
@@ -110,6 +115,16 @@ function CadastroExemplar() {
         <div className="row">
           <div className="col-lg-12">
             <div className="bs-component">
+            <FormGroup label="ID título: *" htmlFor="inputIDTitulo">
+                <input
+                  type="text"
+                  id="inputIdTitulo"
+                  value={idTitulo}
+                  className="form-control"
+                  name="numTombo"
+                  onChange={(e) => setIdTitulo(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup label="Número de Tombo: *" htmlFor="inputNumTombo">
                 <input
                   type="text"
