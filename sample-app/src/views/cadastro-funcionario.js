@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 import Stack from "@mui/material/Stack";
 
@@ -31,11 +32,8 @@ function CadastroFuncionario() {
   const [uf, setUf] = useState("");
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
-  const [login, setLogin] = useState("");
-  const [senha, setSenha] = useState("");
-  const [token, setToken] = useState("");
-
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -52,9 +50,7 @@ function CadastroFuncionario() {
       setUf("");
       setTelefone("");
       setEmail("");
-      setLogin("");
-      setSenha("");
-      navigate('/listagem-funcionarios')
+      navigate("/listagem-funcionarios");
     } else {
       setId(dados.id);
       setNome(dados.nome);
@@ -69,8 +65,6 @@ function CadastroFuncionario() {
       setUf(dados.uf);
       setTelefone(dados.telefone);
       setEmail(dados.email);
-      setLogin(dados.login);
-      setSenha(dados.senha);
       navigate(`/listagem-funcionarios`);
     }
   }
@@ -90,16 +84,13 @@ function CadastroFuncionario() {
       uf,
       telefone,
       email,
-      login,
-      senha,
     };
-    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -114,7 +105,7 @@ function CadastroFuncionario() {
         .put(`${baseURL}/${idParam}`, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
@@ -127,35 +118,33 @@ function CadastroFuncionario() {
     }
   }
 
-  async function buscar() {
+  async function buscar(thisToken) {
     const headers = {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${thisToken}`,
     };
 
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setNome(response.data.nome);
+      setSexo(response.data.sexo);
+      setDtNascimento(response.data.dtNascimento);
+      setLogradouro(response.data.logradouro);
+      setComplemento(response.data.complemento);
+      setNumero(response.data.numero);
+      setBairro(response.data.bairro);
+      setCidade(response.data.cidade);
+      setCep(response.data.cep);
+      setUf(response.data.uf);
+      setTelefone(response.data.telefone);
+      setEmail(response.data.email);
     });
-    setId(dados.id);
-    setNome(dados.nome);
-    setSexo(dados.sexo);
-    setDtNascimento(dados.dtNascimento);
-    setLogradouro(dados.logradouro);
-    setComplemento(dados.complemento);
-    setNumero(dados.numero);
-    setBairro(dados.bairro);
-    setCidade(dados.cidade);
-    setCep(dados.cep);
-    setUf(dados.uf);
-    setTelefone(dados.telefone);
-    setEmail(dados.email);
-    setLogin(dados.login);
-    setSenha(dados.senha);
   }
 
   useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;
@@ -179,7 +168,7 @@ function CadastroFuncionario() {
             <FormGroup label="Nome: *" htmlFor="inputNome">
               <input
                 type="text"
-                maxLength="11"
+                maxLength="100"
                 id="inputNome"
                 value={nome}
                 className="form-control"
@@ -187,16 +176,19 @@ function CadastroFuncionario() {
                 onChange={(e) => setNome(e.target.value)}
               />
             </FormGroup>
-            <FormGroup label="Sexo: " htmlFor="inputSexo">
-              <input
-                //type='email'
-                id="inputSexo"
-                value={sexo}
-                className="form-control"
-                name="sexo"
-                onChange={(e) => setSexo(e.target.value)}
-              />
-            </FormGroup>
+           <FormGroup label="Sexo:" htmlFor="inputSexo">
+                <select
+                  id="inputSexo"
+                  value={sexo}
+                  className="form-control"
+                  name="sexo"
+                  onChange={(e) => setSexo(e.target.value)}
+                >
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                </select>
+              </FormGroup>
             <FormGroup label="Data de nascimento:" htmlFor="inputDtNascimento">
               <input
                 type="date"
@@ -257,16 +249,17 @@ function CadastroFuncionario() {
                 onChange={(e) => setCidade(e.target.value)}
               />
             </FormGroup>
-            <FormGroup label="CEP:" htmlFor="inputCep">
-              <input
-                type="number"
-                id="inputCep"
-                value={cep}
-                className="form-control"
-                name="cep"
-                onChange={(e) => setCep(e.target.value)}
-              />
-            </FormGroup>
+             <FormGroup label="CEP:" htmlFor="inputCep">
+                <InputMask
+                  mask="99999-999"
+                  maskPlaceholder="_"
+                  id="inputCep"
+                  value={cep}
+                  className="form-control"
+                  name="cep"
+                  onChange={(e) => setCep(e.target.value)}
+                />
+              </FormGroup>
             <FormGroup label="UF:" htmlFor="inputUf">
               <input
                 type="text"
@@ -278,15 +271,16 @@ function CadastroFuncionario() {
               />
             </FormGroup>
             <FormGroup label="Telefone:" htmlFor="inputTelefone">
-              <input
-                type="number"
-                id="inputTelefone"
-                value={telefone}
-                className="form-control"
-                name="telefone"
-                onChange={(e) => setTelefone(e.target.value)}
-              />
-            </FormGroup>
+                <InputMask
+                  mask="(99) 9999-9999"
+                  maskPlaceholder="_"
+                  id="inputTelefone"
+                  value={telefone}
+                  className="form-control"
+                  name="telefone"
+                  onChange={(e) => setTelefone(e.target.value)}
+                />
+              </FormGroup>
             <FormGroup label="E-mail:" htmlFor="inputEmail">
               <input
                 type="email"
@@ -295,26 +289,6 @@ function CadastroFuncionario() {
                 className="form-control"
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup label="Login:" htmlFor="inputLogin">
-              <input
-                //type=''
-                id="inputCep"
-                value={login}
-                className="form-control"
-                name="cep"
-                onChange={(e) => setLogin(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup label="Senha:" htmlFor="inputSenha">
-              <input
-                type="password"
-                id="inputSenha"
-                value={senha}
-                className="form-control"
-                name="senha"
-                onChange={(e) => setSenha(e.target.value)}
               />
             </FormGroup>
             <Stack spacing={1} padding={1} direction="row">

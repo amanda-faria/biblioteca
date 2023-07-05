@@ -18,44 +18,55 @@ function CadastroDocumento() {
 
   const baseURL = `${BASE_URL}/documentos`;
 
-  const [id, setId] = useState('');
-  const [tipoDocumento, setTipoDocumento] = useState('');
-  const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState('');
-  const [valorMulta, setValorMulta] = useState('');
-  const [permiteRenovar, setPermiteRenovar] = useState('');
-  const [quantMaximaUnidade, setQuantMaximaUnidade] = useState('');
-  const [permiteReserva, setPermiteReserva] = useState('');
+  const [id, setId] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [prazoEntregaQuantDias, setPrazoEntregaQuantDias] = useState("");
+  const [valorMulta, setValorMulta] = useState("");
+  const [permiteRenovar, setPermiteRenovar] = useState("");
+  const [quantMaximaEmprestimo, setquantMaximaEmprestimo] = useState("");
+  const [permiteReserva, setPermiteReserva] = useState("");
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
-      setId('');
-      setTipoDocumento('');
-      setPrazoEntregaQuantDias('');
-      setValorMulta('');
-      setPermiteRenovar('');
-      setQuantMaximaUnidade('');
-      setPermiteReserva('');
+      setId("");
+      setTipoDocumento("");
+      setPrazoEntregaQuantDias("");
+      setValorMulta("");
+      setPermiteRenovar("");
+      setquantMaximaEmprestimo("");
+      setPermiteReserva("");
+      navigate("/listagem-documentos");
     } else {
       setId(dados.id);
       setTipoDocumento(dados.tipoDocumento);
       setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
       setValorMulta(dados.valorMulta);
       setPermiteRenovar(dados.permiteRenovar);
-      setQuantMaximaUnidade(dados.quantMaximaUnidade);
+      setquantMaximaEmprestimo(dados.quantMaximaEmprestimo);
       setPermiteReserva(dados.permiteReserva);
+      navigate("/listagem-documentos");
     }
   }
 
   async function salvar() {
     let data = {
-      id, tipoDocumento, prazoEntregaQuantDias, valorMulta, permiteRenovar, quantMaximaUnidade,
-      permiteReserva
+      id,
+      tipoDocumento,
+      prazoEntregaQuantDias,
+      valorMulta,
+      permiteRenovar,
+      quantMaximaEmprestimo,
+      permiteReserva,
     };
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(
@@ -69,7 +80,10 @@ function CadastroDocumento() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Documento ${tipoDocumento} alterado com sucesso!`);
@@ -81,33 +95,30 @@ function CadastroDocumento() {
     }
   }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  async function buscar(thisToken) {
+    const headers = {
+      Authorization: `Bearer ${thisToken}`,
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setTipoDocumento(response.data.tipoDocumento);
+      setPrazoEntregaQuantDias(response.data.prazoEntregaQuantDias);
+      setValorMulta(response.data.valorMulta);
+      setPermiteRenovar(response.data.permiteRenovar);
+      setquantMaximaEmprestimo(response.data.quantMaximaEmprestimo);
+      setPermiteReserva(response.data.permiteReserva);
     });
-    setId(dados.id);
-    setTipoDocumento(dados.tipoDocumento);
-    setPrazoEntregaQuantDias(dados.prazoEntregaQuantDias);
-    setValorMulta(dados.valorMulta);
-    setPermiteRenovar(dados.permiteRenovar);
-    setQuantMaximaUnidade(dados.quantMaximaUnidade);
-    setPermiteReserva(dados.permiteReserva);
   }
 
-  // const [dadosCursos, setDadosCursos] = React.useState(null);
-
-  // useEffect(() => {
-  //   axios.get(`${BASE_URL}/cursos`).then((response) => {
-  //     setDadosCursos(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, []);
 
   if (!dados) return null;
-  // if (!dadosCursos) return null;
 
   return (
     <div className="new-container">
@@ -153,44 +164,43 @@ function CadastroDocumento() {
                 />
               </FormGroup>
               <FormGroup
-                label="Possibilidade de renovação:"
-                htmlFor="inputPermiteRenovar"
-              >
-                <input
-                  //type='text'
-                  id="inputPermiteRenovar"
-                  value={permiteRenovar}
-                  className="form-control"
-                  name="permiteRenovar"
-                  onChange={(e) => setPermiteRenovar(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup
                 label="Quantidade máxima de unidades:"
                 htmlFor="inputQuantMaximaUnidade"
               >
                 <input
                   //type='number'
                   id="inputQuantMaximaUnidade"
-                  value={quantMaximaUnidade}
+                  value={quantMaximaEmprestimo}
                   className="form-control"
                   name="QuantMaximaUnidade"
-                  onChange={(e) => setQuantMaximaUnidade(e.target.value)}
+                  onChange={(e) => setquantMaximaEmprestimo(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup
-                label="Possibilidade de reserva:"
-                htmlFor="inputPermiteReserva"
-              >
+              <br></br>
+              <FormGroup>
                 <input
-                  //type='text'
-                  id="inputPermiteReserva"
-                  value={permiteReserva}
-                  className="form-control"
-                  name="PermiteReserva"
-                  onChange={(e) => setPermiteReserva(e.target.value)}
+                  className="form-check-input"
+                  type="checkbox"
+                  id="checkAdmin"
+                  checked={permiteRenovar}
+                  name="Renovar"
+                  onChange={(e) => setPermiteRenovar(e.target.checked)}
                 />
+                {" "} Permite renovar
               </FormGroup>
+              <br></br>
+              <FormGroup>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="checkAdmin"
+                  checked={permiteReserva}
+                  name="Reserva"
+                  onChange={(e) => setPermiteReserva(e.target.checked)}
+                />
+                {" "} Permite reserva
+              </FormGroup>
+              <br></br>
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}

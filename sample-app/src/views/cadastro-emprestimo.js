@@ -16,42 +16,38 @@ function CadastroEmprestimo() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/usuarios`;
+  const baseURL = `${BASE_URL}/emprestimos`;
 
   const [id, setId] = useState("");
-  const [numeroTombo, setNumeroTombo] = useState('');
-  // const [cpf, setCpf] = useState('');
-  // const [senha, setSenha] = useState('');
-  // const [senhaRepeticao, setSenhaRepeticao] = useState('');
-  // const [admin, setAdmin] = useState(false);
-
+  const [numeroTombo, setNumeroTombo] = useState("");
   const [dados, setDados] = useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
       setId("");
-      setNumeroTombo('');
-      // setCpf('');
-      // setSenha('');
-      // setSenhaRepeticao('');
-      // setAdmin(false);
+      setNumeroTombo("");
+      navigate("/listagem-emprestimos");
     } else {
       setId(dados.id);
       setNumeroTombo(dados.numeroTombo);
-      // setCpf(dados.cpf);
-      // setSenha('');
-      // setSenhaRepeticao('');
-      // setAdmin(dados.admin);
+      navigate("/listagem-emprestimos");
     }
   }
 
   async function salvar() {
-    let data = { id, numeroTombo /*login, cpf, senha, senhaRepeticao, admin */ };
-    data = JSON.stringify(data);
+    let data = {
+      id,
+      numeroTombo /*login, cpf, senha, senhaRepeticao, admin */,
+    };
+    //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} cadastrado com sucesso!`);
@@ -63,7 +59,10 @@ function CadastroEmprestimo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Empréstimo ${id} alterado com sucesso!`);
@@ -75,21 +74,23 @@ function CadastroEmprestimo() {
     }
   }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  async function buscar(thisToken) {
+    const headers = {
+      Authorization: `Bearer ${thisToken}`,
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
     });
     setId(dados.id);
     setNumeroTombo(dados.numeroTombo);
-    // setCpf(dados.cpf);
-    // setSenha('');
-    // setSenhaRepeticao('');
-    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
-  }, [id]);
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
+  }, []);
 
   if (!dados) return null;
 
@@ -119,48 +120,6 @@ function CadastroEmprestimo() {
                   onChange={(e) => setNumeroTombo(e.target.value)}
                 />
               </FormGroup>
-              {/* <FormGroup label='CPF: *' htmlFor='inputCpf'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputCpf'
-                  value={cpf}
-                  className='form-control'
-                  name='cpf'
-                  onChange={(e) => setCpf(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup label='Senha: *' htmlFor='inputSenha'>
-                <input
-                  type='password'
-                  id='inputSenha'
-                  value={senha}
-                  className='form-control'
-                  name='senha'
-                  onChange={(e) => setSenha(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup label='Repita a Senha: *' htmlFor='inputRepitaSenha'>
-                <input
-                  type='password'
-                  id='inputRepitaSenha'
-                  value={senhaRepeticao}
-                  className='form-control'
-                  name='senhaRepeticao'
-                  onChange={(e) => setSenhaRepeticao(e.target.value)}
-                />
-              </FormGroup> */}
-              {/* <FormGroup>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  id='checkAdmin'
-                  checked={admin}
-                  name='admin'
-                  onChange={(e) => setAdmin(e.target.checked)}
-                />
-                Administrador
-              </FormGroup> */}
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}

@@ -19,48 +19,49 @@ function CadastroExemplar() {
   const baseURL = `${BASE_URL}/exemplares`;
 
   const [id, setId] = useState("");
-  const [numTombo, setNumTombo] = useState("");
+  const [numeroTombo, setNumeroTombo] = useState("");
   const [dataAquisicao, setDataAquisicao] = useState("");
   const [tipoAquisicao, setTipoAquisicao] = useState("");
   const [valor, setValor] = useState("");
   const [token, setToken] = useState("");
-  // const [admin, setAdmin] = useState(false);
+  const [idTitulo, setIdTitulo] = useState("");
+
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId("");
-      setNumTombo("");
+      setNumeroTombo("");
       setDataAquisicao("");
       setTipoAquisicao("");
       setValor("");
+      setIdTitulo("")
       navigate(`/listagem-exemplares`);
-      // setAdmin(false);
     } else {
       setId(dados.idExemplar);
-      setNumTombo(dados.numTombo);
+      setNumeroTombo(dados.numeroTombo);
       setDataAquisicao(dados.dataAquisicao);
-      setTipoAquisicao("");
-      setValor("");
+      setTipoAquisicao(dados.tipoAquisicao);
+      setValor(dados.valor);
+      setIdTitulo(dados.idTitulo)
       navigate(`/listagem-exemplares`);
-      // setAdmin(dados.admin);
     }
   }
 
   async function salvar() {
-    let data = { id, numTombo, dataAquisicao, tipoAquisicao, valor /* admin*/ };
+    let data = { id, numeroTombo, dataAquisicao, tipoAquisicao, valor, idTitulo};
     //data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${numTombo} cadastrado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numeroTombo} cadastrado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -71,11 +72,11 @@ function CadastroExemplar() {
         .put(`${baseURL}/${idParam}`, data, {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
-          mensagemSucesso(`Exemplar ${numTombo} alterado com sucesso!`);
+          mensagemSucesso(`Exemplar ${numeroTombo} alterado com sucesso!`);
           navigate(`/listagem-exemplares`);
         })
         .catch(function (error) {
@@ -84,26 +85,26 @@ function CadastroExemplar() {
     }
   }
 
-  async function buscar() {
+  async function buscar(thisToken) {
     const headers = {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${thisToken}`,
     };
 
-    await axios.get(`${baseURL}/${idParam}`, {headers}).then((response) => {
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setNumeroTombo(response.data.numeroTombo);
+      setDataAquisicao(response.data.dataAquisicao);
+      setTipoAquisicao(response.data.tipoAquisicao);
+      setValor(response.data.valor);
+      setIdTitulo(response.dado.idTitulo);
     });
-    setId(dados.id);
-    setNumTombo(dados.numTombo);
-    setDataAquisicao(dados.dataAquisicao);
-    setTipoAquisicao("");
-    setValor("");
-    // setAdmin(dados.admin);
   }
 
   useEffect(() => {
-    const jwt = JSON.parse(localStorage.getItem('token'))
-    setToken((prev) => jwt.token)
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;
@@ -114,14 +115,24 @@ function CadastroExemplar() {
         <div className="row">
           <div className="col-lg-12">
             <div className="bs-component">
+            <FormGroup label="ID título: *" htmlFor="inputIDTitulo">
+                <input
+                  type="text"
+                  id="inputIdTitulo"
+                  value={idTitulo}
+                  className="form-control"
+                  name="numTombo"
+                  onChange={(e) => setIdTitulo(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup label="Número de Tombo: *" htmlFor="inputNumTombo">
                 <input
                   type="text"
                   id="inputNumTombo"
-                  value={numTombo}
+                  value={numeroTombo}
                   className="form-control"
                   name="numTombo"
-                  onChange={(e) => setNumTombo(e.target.value)}
+                  onChange={(e) => setNumeroTombo(e.target.value)}
                 />
               </FormGroup>
               <FormGroup
@@ -161,17 +172,6 @@ function CadastroExemplar() {
                   onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
-              {/* <FormGroup>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  id='checkAdmin'
-                  checked={admin}
-                  name='admin'
-                  onChange={(e) => setAdmin(e.target.checked)}
-                />
-                Administrador
-              </FormGroup> */}
               <Stack spacing={1} padding={1} direction="row">
                 <button
                   onClick={salvar}

@@ -30,9 +30,8 @@ function CadastroTitulo() {
   const [editora, setEditora] = useState("");
   const [dtPublicacao, setDtPublicacao] = useState("");
   const [idioma, setIdioma] = useState("");
-  // const [idCoordenador, setIdCoordenador] = useState(0);
-
   const [dados, setDados] = React.useState([]);
+  const [token, setToken] = useState("");
 
   function inicializar() {
     if (idParam == null) {
@@ -47,7 +46,7 @@ function CadastroTitulo() {
       setEditora("");
       setDtPublicacao("");
       setIdioma("");
-      // setIdCoordenador(0);
+      navigate(`/listagem-titulos`);
     } else {
       setId(dados.id);
       setTitulo(dados.titulo);
@@ -60,7 +59,7 @@ function CadastroTitulo() {
       setEditora(dados.editora);
       setDtPublicacao(dados.dtPublicacao);
       setIdioma(dados.idioma);
-      // setIdCoordenador(dados.idCoordenador);
+      navigate(`/listagem-titulos`);
     }
   }
 
@@ -77,13 +76,14 @@ function CadastroTitulo() {
       editora,
       dtPublicacao,
       idioma,
-      // idCoordenador,
     };
-    data = JSON.stringify(data);
     if (idParam == null) {
       await axios
         .post(baseURL, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} cadastrado com sucesso!`);
@@ -95,7 +95,10 @@ function CadastroTitulo() {
     } else {
       await axios
         .put(`${baseURL}/${idParam}`, data, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(function (response) {
           mensagemSucesso(`Título ${titulo} alterado com sucesso!`);
@@ -107,38 +110,34 @@ function CadastroTitulo() {
     }
   }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  async function buscar(thisToken) {
+    const headers = {
+      Authorization: `Bearer ${thisToken}`,
+    };
+
+    await axios.get(`${baseURL}/${idParam}`, { headers }).then((response) => {
       setDados(response.data);
+      setId(response.data.id);
+      setTitulo(response.data.titulo);
+      setSubtitulo(response.data.subtitulo);
+      setEdicao(response.data.edicao);
+      setArea(response.data.area);
+      setTotalPaginas(response.data.totalPaginas);
+      setNotaSerie(response.data.notaSerie);
+      setCidadePublicacao(response.data.cidadePublicacao);
+      setEditora(response.data.editora);
+      setDtPublicacao(response.data.dtPublicacao);
+      setIdioma(response.data.idioma);
     });
-    setId(dados.id);
-    setTitulo(dados.titulo);
-    setSubtitulo(dados.subtitulo);
-    setEdicao(dados.edicao);
-    setArea(dados.area);
-    setTotalPaginas(dados.totalPaginas);
-    setNotaSerie(dados.notaSerie);
-    setCidadePublicacao(dados.cidadePublicacao);
-    setEditora(dados.editora);
-    setDtPublicacao(dados.dtPublicacao);
-    setIdioma(dados.idioma);
-    // setIdCoordenador(dados.idCoordenador);
   }
 
-  // const [dadosProfessores, setDadosProfessores] = React.useState(null);
-
-  // useEffect(() => {
-  //   axios.get(`${BASE_URL}/titulo`).then((response) => {
-  //     setDadosProfessores(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    buscar(); // eslint-disable-next-line
+    const jwt = JSON.parse(localStorage.getItem("token"));
+    setToken((prev) => jwt.token);
+    buscar(jwt.token);
   }, [id]);
 
   if (!dados) return null;
-  // if (!dadosProfessores) return null;
 
   return (
     <div className="new-container">
@@ -160,7 +159,7 @@ function CadastroTitulo() {
                 <input
                   type="text"
                   id="inputSubtitulo"
-                  value={titulo}
+                  value={subtitulo}
                   className="form-control"
                   name="subtitulo"
                   onChange={(e) => setSubtitulo(e.target.value)}

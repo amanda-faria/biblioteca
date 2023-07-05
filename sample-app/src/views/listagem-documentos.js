@@ -35,7 +35,8 @@ function ListagemDocumentos() {
     let url = `${baseURL}/${id}`;
     console.log(url);
     await axios
-      .delete(url, data, {
+      .delete(url, {
+        data,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -87,7 +88,7 @@ function ListagemDocumentos() {
                       <tr>
                         <th scope="col">Tipo</th>
                         <th scope="col">Prazo máximo</th>
-                        <th scope="col">Quantidade máxima</th>
+                        <th scope= "col">Quantidade máxima de empréstimos</th>
                         <th scope="col">Ações</th>
                       </tr>
                     </thead>
@@ -96,7 +97,7 @@ function ListagemDocumentos() {
                         <tr key={dado.id}>
                           <td>{dado.tipoDocumento}</td>
                           <td>{dado.prazoEntregaQuantDias}</td>
-                          <td>{dado.quantMaximaUnidade}</td>
+                          <td>{dado.quantMaximaEmprestimo}</td>
                           <td>
                             <Stack spacing={1} padding={0} direction="row">
                               <IconButton

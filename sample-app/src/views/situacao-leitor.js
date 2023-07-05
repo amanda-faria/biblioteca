@@ -12,7 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/exemplar`;
+const baseURL = `${BASE_URL}/exemplares`;
+
 
 function SituacaoLeitor() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function SituacaoLeitor() {
   const [dados, setDados] = React.useState(null);
   const [dadosFiltrados, setDadosFiltrados] = React.useState([]);
   const [filtroBusca, setFiltroBusca] = React.useState("");
+  const [token, setToken] = React.useState("");
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
@@ -31,7 +33,7 @@ function SituacaoLeitor() {
     console.log(url);
     await axios
       .delete(url, data, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}`},
       })
       .then(function (response) {
         mensagemSucesso(`Empréstimo excluído com sucesso`);
@@ -47,7 +49,13 @@ function SituacaoLeitor() {
   }
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const jwt = JSON.parse(localStorage.getItem('token'))
+    setToken((prev) => jwt.token)
+    const headers = {
+      'Authorization': `Bearer ${jwt.token}`
+    };
+
+    axios.get(baseURL, {headers}).then((response) => {
       setDados(response.data);
       setDadosFiltrados(response.data);
     });
@@ -85,7 +93,9 @@ function SituacaoLeitor() {
                 <th scope="col">Título</th>
                 <th scope="col">Número de tombo</th>
                 <th scope="col">Dias de atraso</th>
-                <th scope="col">Valor da multa</th>
+                <th scope="col">Valor da multa por dia</th>
+                <th scope="col">Valor total da multa</th>
+
                 {/* <th scope="col">Ações</th> */}
               </tr>
             </thead>
@@ -98,10 +108,12 @@ function SituacaoLeitor() {
                   )
                 : dadosFiltrados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>"O menino maluquinho"</td>
-                      <td>{dado.numTombo}</td>
+                      <td>{"O menino maluquinho"}</td>
+                      <td>{dado.numeroTombo}</td>
                       <td>{dado.id}</td>
-                      <td>{dado.valor}</td>
+                      <td>{"R$ " + dado.valor}</td>
+                      <td>{"R$ " + dado.id * dado.valor}</td>
+
                       {/* <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton

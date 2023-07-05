@@ -29,17 +29,22 @@ function ListagemExemplares() {
 
   const [dados, setDados] = React.useState(null);
   const [token, setToken] = React.useState("");
+  const jwt = JSON.parse(localStorage.getItem("token"));
+
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
-    console.log(url);
+    const thisToken = jwt.token;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${thisToken}`,
+    };
+    console.log(headers);
     await axios
-      .delete(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+      .delete(url, {
+        headers,
+        data,
       })
       .then(function (response) {
         mensagemSucesso(`Exemplar excluído com sucesso!`);
@@ -84,17 +89,17 @@ function ListagemExemplares() {
                 <thead>
                   <tr>
                     <th scope="col">Número de Tombo </th>
-                    <th scope="col">Data de Aquisição</th>
                     <th scope="col">Tipo de Aquisição </th>
+                    <th scope="col">Valor </th>
                     <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.numTombo}</td>
-                      <td>{dado.dtAquisicao}</td>
+                      <td>{dado.numeroTombo}</td>
                       <td>{dado.tipoAquisicao}</td>
+                      <td>{dado.valor}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton

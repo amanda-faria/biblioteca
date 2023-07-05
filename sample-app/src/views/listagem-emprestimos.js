@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { BASE_URL } from "../config/axios";
 
-const baseURL = `${BASE_URL}/emprestimo`;
+const baseURL = `${BASE_URL}/emprestimos`;
 
 function ListagemEmprestimos() {
   const navigate = useNavigate();
@@ -28,14 +28,21 @@ function ListagemEmprestimos() {
   };
 
   const [dados, setDados] = React.useState(null);
+  const jwt = JSON.parse(localStorage.getItem("token"));
 
   async function excluir(id) {
     let data = JSON.stringify({ id });
     let url = `${baseURL}/${id}`;
+    const thisToken = jwt.token;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${thisToken}`,
+    };
     console.log(url);
     await axios
-      .delete(url, data, {
-        headers: { "Content-Type": "application/json" },
+      .delete(url, {
+        data,
+        headers,
       })
       .then(function (response) {
         mensagemSucesso(`Empréstimo excluído com sucesso!`);
@@ -51,7 +58,11 @@ function ListagemEmprestimos() {
   }
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const headers = {
+      Authorization: `Bearer ${jwt.token}`,
+    };
+
+    axios.get(baseURL, { headers }).then((response) => {
       setDados(response.data);
     });
   }, []);
@@ -74,18 +85,18 @@ function ListagemEmprestimos() {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Login</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Administrador</th>
+                    <th scope="col">Exemplar</th>
+                    <th scope="col">Funcionário</th>
+                    <th scope="col">Leitor</th>
                     <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.login}</td>
+                      <td>{dado.idExemplar}</td>
                       <td>{dado.cpf}</td>
-                      <td>{dado.admin ? "Sim" : "Não"}</td>
+                      <td>{dado.admin}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction="row">
                           <IconButton
