@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 import Stack from "@mui/material/Stack";
 
@@ -175,16 +176,19 @@ function CadastroFuncionario() {
                 onChange={(e) => setNome(e.target.value)}
               />
             </FormGroup>
-            <FormGroup label="Sexo: " htmlFor="inputSexo">
-              <input
-                //type='email'
-                id="inputSexo"
-                value={sexo}
-                className="form-control"
-                name="sexo"
-                onChange={(e) => setSexo(e.target.value)}
-              />
-            </FormGroup>
+           <FormGroup label="Sexo:" htmlFor="inputSexo">
+                <select
+                  id="inputSexo"
+                  value={sexo}
+                  className="form-control"
+                  name="sexo"
+                  onChange={(e) => setSexo(e.target.value)}
+                >
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                </select>
+              </FormGroup>
             <FormGroup label="Data de nascimento:" htmlFor="inputDtNascimento">
               <input
                 type="date"
@@ -245,16 +249,17 @@ function CadastroFuncionario() {
                 onChange={(e) => setCidade(e.target.value)}
               />
             </FormGroup>
-            <FormGroup label="CEP:" htmlFor="inputCep">
-              <input
-                type="number"
-                id="inputCep"
-                value={cep}
-                className="form-control"
-                name="cep"
-                onChange={(e) => setCep(e.target.value)}
-              />
-            </FormGroup>
+             <FormGroup label="CEP:" htmlFor="inputCep">
+                <InputMask
+                  mask="99999-999"
+                  maskPlaceholder="_"
+                  id="inputCep"
+                  value={cep}
+                  className="form-control"
+                  name="cep"
+                  onChange={(e) => setCep(e.target.value)}
+                />
+              </FormGroup>
             <FormGroup label="UF:" htmlFor="inputUf">
               <input
                 type="text"
@@ -266,15 +271,16 @@ function CadastroFuncionario() {
               />
             </FormGroup>
             <FormGroup label="Telefone:" htmlFor="inputTelefone">
-              <input
-                type="number"
-                id="inputTelefone"
-                value={telefone}
-                className="form-control"
-                name="telefone"
-                onChange={(e) => setTelefone(e.target.value)}
-              />
-            </FormGroup>
+                <InputMask
+                  mask="(99) 9999-9999"
+                  maskPlaceholder="_"
+                  id="inputTelefone"
+                  value={telefone}
+                  className="form-control"
+                  name="telefone"
+                  onChange={(e) => setTelefone(e.target.value)}
+                />
+              </FormGroup>
             <FormGroup label="E-mail:" htmlFor="inputEmail">
               <input
                 type="email"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 import Stack from "@mui/material/Stack";
 
@@ -165,15 +166,18 @@ function CadastroLeitor() {
                   onChange={(e) => setNome(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label="Sexo: " htmlFor="inputSexo">
-                <input
-                  //type='email'
+              <FormGroup label="Sexo:" htmlFor="inputSexo">
+                <select
                   id="inputSexo"
                   value={sexo}
                   className="form-control"
                   name="sexo"
                   onChange={(e) => setSexo(e.target.value)}
-                />
+                >
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                </select>
               </FormGroup>
               <FormGroup
                 label="Data de nascimento:"
@@ -239,8 +243,9 @@ function CadastroLeitor() {
                 />
               </FormGroup>
               <FormGroup label="CEP:" htmlFor="inputCep">
-                <input
-                  type="number"
+                <InputMask
+                  mask="99999-999"
+                  maskPlaceholder="_"
                   id="inputCep"
                   value={cep}
                   className="form-control"
@@ -259,8 +264,9 @@ function CadastroLeitor() {
                 />
               </FormGroup>
               <FormGroup label="Telefone:" htmlFor="inputTelefone">
-                <input
-                  type="number"
+                <InputMask
+                  mask="(99) 9999-9999"
+                  maskPlaceholder="_"
                   id="inputTelefone"
                   value={telefone}
                   className="form-control"
@@ -275,6 +281,7 @@ function CadastroLeitor() {
                   value={email}
                   className="form-control"
                   name="email"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </FormGroup>
@@ -299,6 +306,7 @@ function CadastroLeitor() {
         </div>
       </Card>
     </div>
+
   );
 }
 
